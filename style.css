@@ -46,3 +46,21 @@ footer {
   font-size: 0.9rem;
   margin-top: 2rem;
 }
+.lang-switcher {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.lang-switcher img {
+  width: 24px;
+  height: auto;
+  margin-left: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: transform 0.2s;
+}
+
+.lang-switcher img:hover {
+  transform: scale(1.1);
+}
