@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Εγγραφή στο MNIMIS - Ψηφιακή Μνήμη για συγγενείς και γραφεία τελετών" />
+  <title>MNIMIS - Εγγραφή</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/lang.js" defer></script>
+  <script src="js/auth.js" defer></script> <!-- θα συνδεθεί με Firebase -->
+</head>
+
+<body>
+  <header>
+    <div class="header-container">
+      <h1>MNIMIS.GR</h1>
+      <nav class="language-switcher">
+        <img src="flags/gr.png" width="24" onclick="switchLanguage('el')" title="Ελληνικά" />
+        <img src="flags/en.png" width="24" onclick="switchLanguage('en')" title="English" />
+        <img src="flags/bg.png" width="24" onclick="switchLanguage('bg')" title="Български" />
+        <img src="flags/ru.png" width="24" onclick="switchLanguage('ru')" title="Русский" />
+        <img src="flags/al.png" width="24" onclick="switchLanguage('al')" title="Shqip" />
+      </nav>
+    </div>
+    <p id="register-subtitle">...</p>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <h2 id="register-title">...</h2>
+
+      <form id="register-form">
+        <label for="user-type" id="label-user-type">...</label>
+        <select id="user-type" required>
+          <option value="relative" id="option-relative">...</option>
+          <option value="funeral" id="option-funeral">...</option>
+        </select>
+
+        <input type="email" id="email" placeholder="" required />
+        <input type="password" id="password" placeholder="" required />
+        <input type="password" id="confirm-password" placeholder="" required />
+        
+        <button type="submit" id="register-button">...</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 MNIMIS.GR | Με σεβασμό στη μνήμη
+  </footer>
+</body>
+</html>
