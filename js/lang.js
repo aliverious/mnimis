@@ -1,4 +1,3 @@
-
 const translations = {
   el: {
     site_title: "MNIMIS.GR",
@@ -15,7 +14,10 @@ const translations = {
     partner_register_title: "Εγγραφή Συνεργάτη",
     partner_register_msg: "Για να δημιουργήσετε λογαριασμό ως συνεργάτης (γραφείο τελετών), παρακαλούμε επικοινωνήστε μαζί μας για να σας δοθεί μοναδικός Αριθμός Συνεργάτη.",
     contact_us: "☎️ 6946772226\n📧 aliverious@gmail.com",
-    back_to_register: "Επιστροφή στην Εγγραφή"
+    back_to_register: "Επιστροφή στην Εγγραφή",
+    partner_code_label: "Εισάγετε τον Κωδικό Συνεργάτη",
+    check_code: "Έλεγχος Κωδικού",
+    partner_code_invalid: "Ο κωδικός δεν είναι έγκυρος.\nΠαρακαλούμε επικοινωνήστε μαζί μας στο 📞 6946772226\nΏρες επικοινωνίας: Δευτέρα - Παρασκευή, 10:00 - 14:00\nή στο 📧 aliverious@gmail.com"
   },
   en: {
     site_title: "MNIMIS.GR",
@@ -32,7 +34,10 @@ const translations = {
     partner_register_title: "Partner Registration",
     partner_register_msg: "To register as a partner (funeral home), please contact us to receive your unique Partner ID.",
     contact_us: "☎️ 6946772226\n📧 aliverious@gmail.com",
-    back_to_register: "Back to Registration"
+    back_to_register: "Back to Registration",
+    partner_code_label: "Enter Partner Code",
+    check_code: "Verify Code",
+    partner_code_invalid: "The code is not valid.\nPlease contact us at 📞 6946772226\nAvailable: Monday to Friday, 10:00 - 14:00\nor via 📧 aliverious@gmail.com"
   },
   bg: {
     site_title: "MNIMIS.GR",
@@ -49,7 +54,10 @@ const translations = {
     partner_register_title: "Регистрация на Партньор",
     partner_register_msg: "За да се регистрирате като партньор (погребална агенция), моля свържете се с нас, за да получите уникален партньорски номер.",
     contact_us: "☎️ 6946772226\n📧 aliverious@gmail.com",
-    back_to_register: "Назад към Регистрацията"
+    back_to_register: "Назад към Регистрацията",
+    partner_code_label: "Въведете Партньорски Код",
+    check_code: "Проверка на Кода",
+    partner_code_invalid: "Кодът не е валиден.\nМоля, свържете се с нас на 📞 6946772226\nЧасове за контакт: Пон - Петък, 10:00 - 14:00\nили на 📧 aliverious@gmail.com"
   },
   ru: {
     site_title: "MNIMIS.GR",
@@ -66,7 +74,10 @@ const translations = {
     partner_register_title: "Регистрация Партнёра",
     partner_register_msg: "Чтобы зарегистрироваться как партнёр (ритуальная служба), пожалуйста, свяжитесь с нами для получения уникального партнёрского кода.",
     contact_us: "☎️ 6946772226\n📧 aliverious@gmail.com",
-    back_to_register: "Назад к регистрации"
+    back_to_register: "Назад к регистрации",
+    partner_code_label: "Введите Код Партнёра",
+    check_code: "Проверить Код",
+    partner_code_invalid: "Код недействителен.\nПожалуйста, свяжитесь с нами по телефону 📞 6946772226\nКонтактные часы: Пн - Пт, 10:00 - 14:00\nили на 📧 aliverious@gmail.com"
   },
   al: {
     site_title: "MNIMIS.GR",
@@ -83,63 +94,9 @@ const translations = {
     partner_register_title: "Regjistrimi i Partnerit",
     partner_register_msg: "Për të krijuar një llogari si partner (zyrë funerale), ju lutemi kontaktoni me ne për të marrë një Numër Unik Partneri.",
     contact_us: "☎️ 6946772226\n📧 aliverious@gmail.com",
-    back_to_register: "Kthehu te Regjistrimi"
+    back_to_register: "Kthehu te Regjistrimi",
+    partner_code_label: "Shkruani Kodin e Partnerit",
+    check_code: "Verifiko Kodin",
+    partner_code_invalid: "Kodi nuk është i vlefshëm.\nJu lutemi na kontaktoni në 📞 6946772226\nOrari: E Hënë - E Premte, 10:00 - 14:00\nosé në 📧 aliverious@gmail.com"
   }
 };
-
-let currentLang = localStorage.getItem('lang') || 'el';
-
-function applyTranslations() {
-  document.querySelectorAll('[data-lang-key]').forEach(el => {
-    const key = el.getAttribute('data-lang-key');
-    const translation = translations[currentLang][key];
-    if (translation) {
-      if (['INPUT', 'TEXTAREA'].includes(el.tagName)) {
-        el.placeholder = translation;
-      } else {
-        el.textContent = translation;
-      }
-    }
-  });
-}
-
-document.addEventListener('DOMContentLoaded', applyTranslations);
-
-document.querySelectorAll('.flag').forEach(flag => {
-  flag.addEventListener('click', () => {
-    const lang = flag.getAttribute('data-lang');
-    currentLang = lang;
-    localStorage.setItem('lang', lang);
-    applyTranslations();
-  });
-});
-el: {
-  // ... existing entries ...
-  partner_code_label: "Εισάγετε τον Κωδικό Συνεργάτη",
-  check_code: "Έλεγχος Κωδικού",
-  partner_code_invalid: "Ο κωδικός δεν είναι έγκυρος.\nΠαρακαλούμε επικοινωνήστε μαζί μας στο 📞 6946772226\nΏρες επικοινωνίας: Δευτέρα - Παρασκευή, 10:00 - 14:00\nή στο 📧 aliverious@gmail.com"
-},
-en: {
-  // ... existing entries ...
-  partner_code_label: "Enter Partner Code",
-  check_code: "Verify Code",
-  partner_code_invalid: "The code is not valid.\nPlease contact us at 📞 6946772226\nAvailable: Monday to Friday, 10:00 - 14:00\nor via 📧 aliverious@gmail.com"
-},
-bg: {
-  // ... existing entries ...
-  partner_code_label: "Въведете Партньорски Код",
-  check_code: "Проверка на Кода",
-  partner_code_invalid: "Кодът не е валиден.\nМоля, свържете се с нас на 📞 6946772226\nЧасове за контакт: Пон - Петък, 10:00 - 14:00\nили на 📧 aliverious@gmail.com"
-},
-ru: {
-  // ... existing entries ...
-  partner_code_label: "Введите Код Партнёра",
-  check_code: "Проверить Код",
-  partner_code_invalid: "Код недействителен.\nПожалуйста, свяжитесь с нами по телефону 📞 6946772226\nКонтактные часы: Пн - Пт, 10:00 - 14:00\nили на 📧 aliverious@gmail.com"
-},
-al: {
-  // ... existing entries ...
-  partner_code_label: "Shkruani Kodin e Partnerit",
-  check_code: "Verifiko Kodin",
-  partner_code_invalid: "Kodi nuk është i vlefshëm.\nJu lutemi na kontaktoni në 📞 6946772226\nOrari: E Hënë - E Premte, 10:00 - 14:00\nosé në 📧 aliverious@gmail.com"
-}
