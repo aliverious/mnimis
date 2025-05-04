@@ -1,4 +1,7 @@
+from pathlib import Path
 
+# Add a light background pattern (via CSS) to enhance visual tone
+index_html_with_bg = """
 <!DOCTYPE html>
 <html lang="el">
 <head>
@@ -6,6 +9,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang-key="site_title">MNIMIS.GR</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background: #f9f9f9 url("https://www.transparenttextures.com/patterns/pw-maze-white.png");
+      background-repeat: repeat;
+    }
+
+    [data-theme='dark'] body {
+      background-color: #1c1c1c;
+      background-image: url("https://www.transparenttextures.com/patterns/black-linen.png");
+    }
+
+    .hero {
+      padding: 5rem 1rem 3rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #555;
+      max-width: 720px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero .btn-main {
+      font-size: 1.1rem;
+      padding: 0.85rem 2.5rem;
+    }
+
+    .quote {
+      font-style: italic;
+      font-size: 1rem;
+      color: #888;
+      margin-top: 2rem;
+    }
+
+    [data-theme='dark'] .hero p {
+      color: #ccc;
+    }
+
+    [data-theme='dark'] .quote {
+      color: #999;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -22,13 +73,13 @@
     </div>
   </header>
 
-  <main class="container" style="text-align: center; padding: 4rem 1rem;">
+  <main class="hero">
     <h1 data-lang-key="home_title">Ψηφιακές Σελίδες Μνήμης</h1>
     <p data-lang-key="home_description">
-      Στιγμές που κρατούνται ζωντανές. Δημιουργήστε έναν ψηφιακό χώρο μνήμης για εκείνους που αγαπήσατε, με φωτογραφίες, μουσική, βίντεο και ευχές.
-      Το MNIMIS.GR προσφέρει έναν αξιοπρεπή τρόπο να θυμόμαστε — με τεχνολογία QR και NFC.
+      Δημιουργούμε έναν χώρο όπου η μνήμη δεν σβήνει. Φωτογραφίες, μουσικές, βίντεο και λέξεις καρδιάς ενώνονται σε έναν μοναδικό σύνδεσμο, για πάντα. Με τεχνολογία QR/NFC, προσφέρουμε σε οικογένειες και γραφεία τελετών έναν αξιοπρεπή τρόπο να θυμούνται.
     </p>
     <a href="register.html" class="btn-main" data-lang-key="get_started">Δημιουργία Memorial</a>
+    <div class="quote" data-lang-key="home_quote">«Η μνήμη είναι η μόνη γη όπου μπορούμε να ξανασυναντηθούμε.»</div>
   </main>
 
   <footer>
@@ -39,3 +90,9 @@
   <script type="module" src="js/ui.js"></script>
 </body>
 </html>
+"""
+
+# Save file
+path = Path("/mnt/data/index_bg.html")
+path.write_text(index_html_with_bg, encoding="utf-8")
+path.name
