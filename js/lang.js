@@ -1,3 +1,4 @@
+
 const translations = {
   el: {
     site_title: "MNIMIS.GR",
@@ -24,7 +25,8 @@ const translations = {
     submit_comment: "Υποβολή",
     admin_panel: "Πίνακας Διαχείρισης",
     pending_memorials: "Memorials προς Έγκριση",
-    pending_partners: "Αιτήματα Συνεργατών"
+    pending_partners: "Αιτήματα Συνεργατών",
+    select_role: "Επιλέξτε Ρόλο"
   },
   en: {
     site_title: "MNIMIS.GR",
@@ -51,7 +53,8 @@ const translations = {
     submit_comment: "Submit",
     admin_panel: "Admin Panel",
     pending_memorials: "Memorials Pending Approval",
-    pending_partners: "Partner Requests"
+    pending_partners: "Partner Requests",
+    select_role: "Select Role"
   },
   bg: {
     site_title: "MNIMIS.GR",
@@ -78,7 +81,8 @@ const translations = {
     submit_comment: "Изпрати",
     admin_panel: "Административен Панел",
     pending_memorials: "Memorials за одобрение",
-    pending_partners: "Заявки от партньори"
+    pending_partners: "Заявки от партньори",
+    select_role: "Изберете роля"
   },
   ru: {
     site_title: "MNIMIS.GR",
@@ -105,7 +109,8 @@ const translations = {
     submit_comment: "Отправить",
     admin_panel: "Панель администратора",
     pending_memorials: "Memorials на утверждение",
-    pending_partners: "Заявки партнеров"
+    pending_partners: "Заявки партнеров",
+    select_role: "Выберите роль"
   },
   al: {
     site_title: "MNIMIS.GR",
@@ -132,7 +137,8 @@ const translations = {
     submit_comment: "Dërgo",
     admin_panel: "Paneli i Administratorit",
     pending_memorials: "Memorial në pritje të aprovimit",
-    pending_partners: "Kërkesa nga partnerë"
+    pending_partners: "Kërkesa nga partnerë",
+    select_role: "Zgjidhni rolin"
   }
 };
 
