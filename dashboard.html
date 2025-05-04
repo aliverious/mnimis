@@ -1,31 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="el">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang-key="dashboard_title">Πίνακας Χρήστη</title>
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    .dashboard-section {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
-    .hidden {
-      display: none;
-    }
-    h2 {
-      margin-top: 1rem;
-      font-size: 1.5rem;
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <div><strong data-lang-key="site_title">MNIMIS.GR</strong></div>
+  <header class="top-bar">
+    <h1 data-lang-key="site_title">MNIMIS.GR</h1>
     <div style="display: flex; align-items: center; gap: 1rem;">
-      <div id="lang-switcher">
+      <div id="lang-switcher" style="display: flex; gap: 0.3rem;">
         <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
         <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
         <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
@@ -36,24 +21,18 @@
     </div>
   </header>
 
-  <main class="dashboard-section">
-    <h1 data-lang-key="dashboard_title">Πίνακας Χρήστη</h1>
+  <main class="container" style="text-align: center;">
+    <h2 id="welcomeMessage">Καλώς ήρθατε!</h2>
+    <p id="roleInfoText"></p>
 
-    <div id="relative-dashboard" class="hidden">
-      <h2 data-lang-key="welcome_relative">Καλώς ήρθατε, Συγγενή</h2>
-      <p data-lang-key="relative_info">Εδώ μπορείτε να διαχειριστείτε τις σελίδες μνήμης που δημιουργήσατε.</p>
-      <button class="btn-main" data-lang-key="create_memorial">➕ Δημιουργία Memorial</button>
-    </div>
-
-    <div id="partner-dashboard" class="hidden">
-      <h2 data-lang-key="welcome_partner">Καλώς ήρθατε, Συνεργάτη</h2>
-      <p data-lang-key="partner_info">Ως γραφείο τελετών, μπορείτε να προσθέσετε memorial για λογαριασμό συγγενών.</p>
-      <button class="btn-main" data-lang-key="add_partner_memorial">➕ Προσθήκη Memorial</button>
+    <div style="margin-top: 2rem;">
+      <button class="btn-main" id="createMemorialBtn" style="display: none;" data-lang-key="create_memorial">➕ Δημιουργία Memorial</button>
+      <button class="btn-main" id="addPartnerMemorialBtn" style="display: none;" data-lang-key="add_partner_memorial">➕ Προσθήκη Memorial</button>
     </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 MNIMIS.GR – Με σεβασμό στη μνήμη</p>
+    <p>&copy; 2025 MNIMIS.GR</p>
   </footer>
 
   <script type="module" src="js/lang.js"></script>
@@ -68,26 +47,32 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    const relativeSection = document.getElementById("relative-dashboard");
-    const partnerSection = document.getElementById("partner-dashboard");
+    const welcomeEl = document.getElementById("welcomeMessage");
+    const infoEl = document.getElementById("roleInfoText");
+    const btnRelative = document.getElementById("createMemorialBtn");
+    const btnPartner = document.getElementById("addPartnerMemorialBtn");
 
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const uid = user.uid;
-        const userRef = doc(db, "users", uid);
-        const userSnap = await getDoc(userRef);
-        if (userSnap.exists()) {
-          const userData = userSnap.data();
-          if (userData.role === "partner") {
-            partnerSection.classList.remove("hidden");
-          } else {
-            relativeSection.classList.remove("hidden");
-          }
-        } else {
-          alert("Δεν βρέθηκαν στοιχεία χρήστη.");
+    onAuthStateChanged(auth, async user => {
+      if (!user) {
+        alert("Παρακαλούμε συνδεθείτε πρώτα.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const role = userDoc.data().role;
+        if (role === "relative") {
+          welcomeEl.textContent = "Καλώς ήρθατε, Συγγενή!";
+          infoEl.textContent = "Εδώ μπορείτε να διαχειριστείτε τις σελίδες μνήμης που δημιουργήσατε.";
+          btnRelative.style.display = "inline-block";
+        } else if (role === "partner") {
+          welcomeEl.textContent = "Καλώς ήρθατε, Συνεργάτη!";
+          infoEl.textContent = "Ως γραφείο τελετών, μπορείτε να προσθέσετε memorial για λογαριασμό συγγενών.";
+          btnPartner.style.display = "inline-block";
         }
       } else {
-        window.location.href = "login.html";
+        welcomeEl.textContent = "Δεν βρέθηκαν δεδομένα χρήστη.";
       }
     });
   </script>
