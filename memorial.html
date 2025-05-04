@@ -1,84 +1,110 @@
+
 <!DOCTYPE html>
-<html lang="el" data-theme="light">
+<html lang="el">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-lang-key="memorial_title">Σελίδα Μνήμης</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-lang-key="memorial_page">Σελίδα Μνήμης</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .memorial-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
 
-  <!-- Security headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com https://maps.googleapis.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://lh3.googleusercontent.com; connect-src 'self' https://firestore.googleapis.com;">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="X-Frame-Options" content="DENY">
+    .memorial-header {
+      text-align: center;
+    }
 
-  <!-- Roboto font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    .memorial-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 1rem auto;
+      display: block;
+    }
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="css/style.css">
+    .info-block {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    iframe {
+      max-width: 100%;
+      margin-top: 1rem;
+    }
+
+    .comment-section {
+      margin-top: 2rem;
+    }
+
+    .map-section {
+      margin-top: 2rem;
+      height: 300px;
+    }
+
+    .report-button {
+      display: block;
+      margin: 2rem auto;
+      padding: 0.5rem 1.5rem;
+      background-color: #a00;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    [data-theme='dark'] .report-button {
+      background-color: #c33;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <div class="container">
-      <h1 id="site-title" data-lang-key="site_title">MNIMIS.GR</h1>
+    <div><strong data-lang-key="site_title">MNIMIS.GR</strong></div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
       <div id="lang-switcher">
-        <img src="assets/flags/gr.png" alt="Ελληνικά" data-lang="el" class="flag">
-        <img src="assets/flags/en.png" alt="English" data-lang="en" class="flag">
-        <img src="assets/flags/bg.png" alt="Български" data-lang="bg" class="flag">
-        <img src="assets/flags/ru.png" alt="Русский" data-lang="ru" class="flag">
-        <img src="assets/flags/al.png" alt="Shqip" data-lang="al" class="flag">
+        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
+        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
+        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
+        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
+        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
       </div>
-      <button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+      <button id="dark-mode-toggle" title="Dark mode">🌙</button>
     </div>
   </header>
 
-  <main>
-    <div class="container">
-      <div id="memorial-content">
-        <!-- Dynamic memorial content goes here -->
-      </div>
+  <main class="memorial-container">
+    <div class="memorial-header">
+      <img id="memorial-photo" class="memorial-photo" src="assets/images/default.png" alt="photo" />
+      <h1 id="memorial-name">...</h1>
+      <p id="memorial-dates">...</p>
+      <p id="memorial-birthplace">...</p>
     </div>
+
+    <iframe id="memorial-video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+
+    <div class="comment-section">
+      <h2 data-lang-key="comments">Σχόλια/Ευχές</h2>
+      <textarea placeholder="Αφήστε ένα μήνυμα..." rows="4" style="width:100%"></textarea>
+      <button data-lang-key="submit_comment">Υποβολή</button>
+    </div>
+
+    <div class="map-section" id="map"></div>
+
+    <button class="report-button" data-lang-key="report_memorial">Αναφορά Memorial</button>
   </main>
 
   <footer>
-    <div class="container center">
-      <button id="report-btn" class="btn" data-lang-key="report_button">Αναφορά Σελίδας</button>
-      <p>&copy; <span id="year"></span> MNIMIS.GR</p>
-    </div>
+    <p>&copy; 2025 MNIMIS.GR – Με σεβασμό στη μνήμη</p>
   </footer>
 
-  <!-- Google Maps API -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage.js"></script>
-  <script src="js/firebase.js"></script>
-
-  <!-- Libraries for sanitization and QR code -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-  <!-- App scripts -->
-  <script src="js/lang.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/memorial.js" type="module"></script>
-  <script>
-    // Persist theme & year
-    const saved = localStorage.getItem('theme');
-    if (saved) document.documentElement.setAttribute('data-theme', saved);
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Initialize memorial page
-    document.addEventListener('DOMContentLoaded', initMemorialPage);
-
-    // Report button placeholder
-    document.getElementById('report-btn').addEventListener('click', () => {
-      alert('Η αναφορά σας καταγράφηκε.');
-    });
-  </script>
+  <script type="module" src="js/lang.js"></script>
+  <script type="module" src="js/ui.js"></script>
+  <script type="module" src="js/memorial.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
 </body>
 </html>
