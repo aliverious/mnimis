@@ -1,98 +1,88 @@
-from pathlib import Path
 
-# Add a light background pattern (via CSS) to enhance visual tone
-index_html_with_bg = """
 <!DOCTYPE html>
 <html lang="el">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-lang-key="site_title">MNIMIS.GR</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    body {
-      background: #f9f9f9 url("https://www.transparenttextures.com/patterns/pw-maze-white.png");
-      background-repeat: repeat;
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
     }
-
-    [data-theme='dark'] body {
-      background-color: #1c1c1c;
-      background-image: url("https://www.transparenttextures.com/patterns/black-linen.png");
+    .flag {
+      width: 24px;
+      cursor: pointer;
     }
-
-    .hero {
-      padding: 5rem 1rem 3rem;
+    .btn-login {
+      padding: 0.5rem 1rem;
+      background: #0055a5;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .search-box {
+      margin-top: 2rem;
       text-align: center;
     }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
+    .search-box input {
+      padding: 0.5rem;
+      width: 250px;
+      max-width: 90%;
     }
-
-    .hero p {
-      font-size: 1.2rem;
-      color: #555;
-      max-width: 720px;
-      margin: 0 auto 2rem;
-    }
-
-    .hero .btn-main {
-      font-size: 1.1rem;
-      padding: 0.85rem 2.5rem;
-    }
-
-    .quote {
-      font-style: italic;
-      font-size: 1rem;
-      color: #888;
-      margin-top: 2rem;
-    }
-
-    [data-theme='dark'] .hero p {
-      color: #ccc;
-    }
-
-    [data-theme='dark'] .quote {
-      color: #999;
+    .search-box button {
+      padding: 0.5rem 1rem;
+      margin-left: 0.5rem;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div><strong data-lang-key="site_title">MNIMIS.GR</strong></div>
+  <header class="top-bar">
+    <h1 data-lang-key="site_title">MNIMIS.GR</h1>
     <div style="display: flex; align-items: center; gap: 1rem;">
-      <div id="lang-switcher">
-        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
-        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
-        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
-        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
-        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
+      <div id="lang-switcher" style="display: flex; gap: 0.25rem;">
+        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR">
+        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN">
+        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG">
+        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU">
+        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL">
       </div>
+      <a href="login.html" class="btn-login" data-lang-key="login_button">Είσοδος</a>
       <button id="dark-mode-toggle" title="Dark mode">🌙</button>
     </div>
   </header>
 
-  <main class="hero">
-    <h1 data-lang-key="home_title">Ψηφιακές Σελίδες Μνήμης</h1>
+  <main style="max-width: 600px; margin: 3rem auto; text-align: center; padding: 0 1rem;">
+    <h2 data-lang-key="home_title">Ψηφιακές Σελίδες Μνήμης</h2>
     <p data-lang-key="home_description">
-      Δημιουργούμε έναν χώρο όπου η μνήμη δεν σβήνει. Φωτογραφίες, μουσικές, βίντεο και λέξεις καρδιάς ενώνονται σε έναν μοναδικό σύνδεσμο, για πάντα. Με τεχνολογία QR/NFC, προσφέρουμε σε οικογένειες και γραφεία τελετών έναν αξιοπρεπή τρόπο να θυμούνται.
+      Δημιουργούμε χώρο για τη μνήμη των αγαπημένων σας.
+      Με τη χρήση τεχνολογιών QR/NFC, προσφέρουμε μοναδικές ψηφιακές σελίδες μνήμης που περιλαμβάνουν φωτογραφίες, βίντεο, σχόλια και μουσική.
     </p>
-    <a href="register.html" class="btn-main" data-lang-key="get_started">Δημιουργία Memorial</a>
-    <div class="quote" data-lang-key="home_quote">«Η μνήμη είναι η μόνη γη όπου μπορούμε να ξανασυναντηθούμε.»</div>
+    <a href="register.html" class="btn" style="display: inline-block; margin-top: 2rem; padding: 0.75rem 2rem; background-color: #0055a5; color: #fff; border-radius: 6px; text-decoration: none;" data-lang-key="get_started">Ξεκίνα</a>
+
+    <div class="search-box">
+      <h3 data-lang-key="search_memorial">Αναζήτηση Memorial</h3>
+      <input type="text" id="searchId" placeholder="Εισάγετε UUID memorial">
+      <button onclick="searchMemorial()" data-lang-key="search">Αναζήτηση</button>
+    </div>
   </main>
 
-  <footer>
-    <p>&copy; 2025 MNIMIS.GR – Με σεβασμό στη μνήμη</p>
+  <footer style="text-align: center; padding: 2rem 1rem; font-size: 0.9rem; color: #777;">
+    <p>&copy; 2025 MNIMIS.GR</p>
   </footer>
 
   <script type="module" src="js/lang.js"></script>
   <script type="module" src="js/ui.js"></script>
+  <script>
+    function searchMemorial() {
+      const id = document.getElementById('searchId').value.trim();
+      if (id) {
+        window.location.href = `memorial.html?id=${id}`;
+      }
+    }
+  </script>
 </body>
 </html>
-"""
-
-# Save file
-path = Path("/mnt/data/index_bg.html")
-path.write_text(index_html_with_bg, encoding="utf-8")
-path.name
