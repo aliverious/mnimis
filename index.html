@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="el">
 <head>
@@ -5,35 +6,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang-key="site_title">MNIMIS.GR</title>
   <link rel="stylesheet" href="css/style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background-color: #fff;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    #lang-switcher {
+      display: flex;
+      gap: 0.3rem;
+    }
+
+    .flag {
+      width: 24px;
+      cursor: pointer;
+    }
+
+    #dark-mode-toggle {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 5rem auto;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .btn-main {
+      background-color: #1d3557;
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .btn-main:hover {
+      background-color: #457b9d;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #777;
+      background-color: #fff;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    [data-theme='dark'] body {
+      background: #1c1c1c;
+      color: #eee;
+    }
+
+    [data-theme='dark'] header,
+    [data-theme='dark'] footer {
+      background-color: #2a2a2a;
+      border-color: #444;
+    }
+  </style>
 </head>
 <body>
-  <header style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid #ccc;">
-    <h1 data-lang-key="site_title">MNIMIS.GR</h1>
+  <header>
+    <div><strong data-lang-key="site_title">MNIMIS.GR</strong></div>
     <div style="display: flex; align-items: center; gap: 1rem;">
-      <div id="lang-switcher" style="display: flex; gap: 0.25rem;">
-        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" style="width: 24px; cursor: pointer;" />
-        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" style="width: 24px; cursor: pointer;" />
-        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" style="width: 24px; cursor: pointer;" />
-        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" style="width: 24px; cursor: pointer;" />
-        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" style="width: 24px; cursor: pointer;" />
+      <div id="lang-switcher">
+        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
+        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
+        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
+        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
+        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
       </div>
-      <button id="dark-mode-toggle" title="Dark mode" style="background: none; border: none; font-size: 1.2rem; cursor: pointer;">🌙</button>
+      <button id="dark-mode-toggle" title="Dark mode">🌙</button>
     </div>
   </header>
 
-  <main style="max-width: 600px; margin: 3rem auto; text-align: center; padding: 0 1rem;">
-    <h2 data-lang-key="home_title">Ψηφιακές Σελίδες Μνήμης</h2>
+  <main>
+    <h1 data-lang-key="home_title">Ψηφιακές Σελίδες Μνήμης</h1>
     <p data-lang-key="home_description">
-      Δημιουργούμε χώρο για τη μνήμη των αγαπημένων σας.
-      Με τη χρήση τεχνολογιών QR/NFC, προσφέρουμε μοναδικές ψηφιακές σελίδες μνήμης που περιλαμβάνουν φωτογραφίες, βίντεο, σχόλια και μουσική.
+      Στιγμές που κρατούνται ζωντανές. Δημιουργήστε έναν ψηφιακό χώρο μνήμης για εκείνους που αγαπήσατε, με φωτογραφίες, μουσική, βίντεο και ευχές.  
+      Το MNIMIS.GR προσφέρει έναν αξιοπρεπή τρόπο να θυμόμαστε — με τεχνολογία QR και NFC.
     </p>
-    <a href="register.html" class="btn" style="display: inline-block; margin-top: 2rem; padding: 0.75rem 2rem; background-color: #0055a5; color: #fff; border-radius: 6px; text-decoration: none;" data-lang-key="get_started">Ξεκίνα</a>
+    <a href="register.html" class="btn-main" data-lang-key="get_started">Δημιουργία Memorial</a>
   </main>
 
-  <footer style="text-align: center; padding: 2rem 1rem; font-size: 0.9rem; color: #777;">
-    <p>&copy; 2025 MNIMIS.GR</p>
+  <footer>
+    <p>&copy; 2025 MNIMIS.GR – Με σεβασμό στη μνήμη</p>
   </footer>
 
   <script type="module" src="js/lang.js"></script>
