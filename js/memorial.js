@@ -1,90 +1,100 @@
-// js/memorial.js
-// Logic for loading and interacting with a memorial page
-import { db, storage } from "./firebase.js";
-import {
-  doc,
-  getDoc,
-  collection,
-  addDoc,
-  query,
-  where,
-  getDocs,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
-import { ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-storage.js";
-import { displayAlert } from "./ui.js";
-import { sanitize } from "./ui.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { getFirestore, doc, getDoc, collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { firebaseConfig } from "./firebase.js";
 
-// Extract memorial ID from URL
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const params = new URLSearchParams(window.location.search);
-const memorialId = params.get('id');
+const id = params.get("id");
 
-/**
- * Initialize memorial page
- */
-export async function initMemorialPage() {
-  if (!memorialId) {
-    displayAlert('Invalid memorial ID', 'error');
-    return;
-  }
-  const memSnap = await getDoc(doc(db, 'memorials', memorialId));
-  if (!memSnap.exists()) {
-    displayAlert('Memorial not found', 'error');
-    return;
-  }
-  const data = memSnap.data();
-  // Load image
-  const imgUrl = await getDownloadURL(ref(storage, data.photoPath));
-  document.getElementById('memorial-photo').src = imgUrl;
-  document.getElementById('memorial-name').textContent = `${data.firstName} ${data.lastName}`;
-  document.getElementById('memorial-dates').textContent = `${data.birth} – ${data.death}`;
-  // Video embed
-  if (data.videoUrl) {
-    const vidContainer = document.getElementById('memorial-video');
-    vidContainer.innerHTML = `<iframe src="${data.videoUrl}" frameborder="0" allowfullscreen></iframe>`;
-  }
-  // Music
-  if (data.musicUrl) {
-    const musicEl = document.getElementById('memorial-music');
-    musicEl.src = data.musicUrl;
-  }
-  // TODO: Google Maps initialization based on data.cemeteryLocation
-  // Load comments
-  await loadComments();
+if (!id) {
+  alert("Δεν βρέθηκε κωδικός memorial.");
+  throw new Error("Λείπει το ID.");
 }
 
-/**
- * Load approved comments
- */
-async function loadComments() {
-  const cQuery = query(collection(db, 'memorials', memorialId, 'comments'), where('approved', '==', true));
-  const cSnap = await getDocs(cQuery);
-  const list = document.getElementById('comments-list');
-  cSnap.forEach(docSnap => {
-    const c = docSnap.data();
-    const li = document.createElement('li');
-    li.textContent = sanitize(c.text);
-    list.appendChild(li);
-  });
-  document.getElementById('comment-form').addEventListener('submit', postComment);
+const photoEl = document.getElementById("photo");
+const fullNameEl = document.getElementById("fullName");
+const birthPlaceEl = document.getElementById("birthPlace");
+const lifespanEl = document.getElementById("lifespan");
+const videoSection = document.getElementById("videoSection");
+const musicSection = document.getElementById("musicSection");
+const commentList = document.getElementById("commentList");
+
+// 🔄 Φόρτωση δεδομένων memorial
+async function loadMemorial() {
+  const docRef = doc(db, "memorials", id);
+  const snapshot = await getDoc(docRef);
+
+  if (!snapshot.exists()) {
+    fullNameEl.textContent = "Δεν βρέθηκε memorial.";
+    return;
+  }
+
+  const data = snapshot.data();
+
+  fullNameEl.textContent = data.fullName || "";
+  birthPlaceEl.textContent = data.birthPlace || "";
+  lifespanEl.textContent = data.lifespan || "";
+  if (data.photoURL) photoEl.src = data.photoURL;
+
+  if (data.videoURL) {
+    const iframe = document.createElement("iframe");
+    iframe.src = data.videoURL;
+    iframe.width = "100%";
+    iframe.height = "315";
+    iframe.allowFullscreen = true;
+    videoSection.appendChild(iframe);
+  }
+
+  if (data.musicURL) {
+    const audio = document.createElement("audio");
+    audio.src = data.musicURL;
+    audio.controls = true;
+    musicSection.appendChild(audio);
+  }
+
+  // Αν έχει συντεταγμένες -> εμφάνιση Google Maps
+  if (data.location && data.location.lat && data.location.lng) {
+    const mapFrame = document.createElement("iframe");
+    mapFrame.src = `https://www.google.com/maps?q=${data.location.lat},${data.location.lng}&hl=el&z=16&output=embed`;
+    mapFrame.width = "100%";
+    mapFrame.height = "250";
+    mapFrame.style.border = "0";
+    document.getElementById("map").appendChild(mapFrame);
+  }
 }
 
-/**
- * Post a new comment for approval
- */
-async function postComment(e) {
+// 💬 Σχόλια
+window.submitComment = async function (e) {
   e.preventDefault();
-  const input = document.getElementById('comment-input');
-  const text = input.value;
-  if (!text.trim()) return;
-  await addDoc(collection(db, 'memorials', memorialId, 'comments'), {
-    text: sanitize(text),
-    createdAt: serverTimestamp(),
-    approved: false
+  const text = document.getElementById("commentText").value.trim();
+  if (!text) return;
+
+  await addDoc(collection(db, "memorials", id, "comments"), {
+    text,
+    createdAt: new Date().toISOString()
   });
-  displayAlert('Comment submitted for approval', 'info');
-  e.target.reset();
+
+  document.getElementById("commentText").value = "";
+};
+
+function loadComments() {
+  const q = query(collection(db, "memorials", id, "comments"), orderBy("createdAt", "desc"));
+  onSnapshot(q, (snapshot) => {
+    commentList.innerHTML = "";
+    snapshot.forEach((doc) => {
+      const p = document.createElement("p");
+      p.textContent = doc.data().text;
+      commentList.appendChild(p);
+    });
+  });
 }
 
-// On page load
-window.addEventListener('DOMContentLoaded', initMemorialPage);
+// 🆘 Αναφορά memorial
+window.reportMemorial = function () {
+  alert("Η λειτουργία αναφοράς memorial θα ενεργοποιηθεί σύντομα.");
+};
+
+loadMemorial();
+loadComments();
