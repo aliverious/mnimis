@@ -100,7 +100,7 @@
 
     <div class="role-select">
       <button class="role-btn" id="btn-relative" data-role="relative">Είμαι Συγγενής</button>
-      <button class="role-btn" id="btn-partner" data-role="partner">Είμαι Συνεργάτης</button>
+      <a href="register_partner.html" class="role-btn" id="btn-partner" data-role="partner">Είμαι Συνεργάτης</a>
     </div>
 
     <div class="form-section" id="relative-form">
@@ -145,11 +145,6 @@
     document.getElementById("btn-relative").addEventListener("click", () => {
       document.getElementById("relative-form").style.display = "block";
       document.getElementById("btn-relative").classList.add("active");
-      document.getElementById("btn-partner").classList.remove("active");
-    });
-
-    document.getElementById("btn-partner").addEventListener("click", () => {
-      window.location.href = "partner_register_info.html";
     });
   </script>
 </body>
