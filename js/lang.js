@@ -1,133 +1,157 @@
-// lang.js
 const translations = {
   el: {
     site_title: "MNIMIS.GR",
     home_title: "Ψηφιακές Σελίδες Μνήμης",
     home_description: "Δημιουργούμε χώρο για τη μνήμη των αγαπημένων σας. Με τη χρήση τεχνολογιών QR/NFC, προσφέρουμε μοναδικές ψηφιακές σελίδες μνήμης που περιλαμβάνουν φωτογραφίες, βίντεο, σχόλια και μουσική.",
-    home_quote: "«Η μνήμη είναι η μόνη γη όπου μπορούμε να ξανασυναντηθούμε.»"
     get_started: "Ξεκίνα",
+    register_title: "Εγγραφή",
+    name: "Όνομα",
+    surname: "Επώνυμο",
+    email: "Email",
+    password: "Κωδικός",
+    confirm_password: "Επιβεβαίωση Κωδικού",
+    register_submit: "Εγγραφή",
+    partner_register_title: "Εγγραφή Συνεργάτη",
+    verify_code: "Επαλήθευση Κωδικού",
+    partner_register_info: "Πριν εγγραφείτε ως συνεργάτης, πρέπει να έχετε λάβει μοναδικό κωδικό από την ομάδα μας.",
     login_button: "Είσοδος",
-    search_memorial: "Αναζήτηση Memorial",
-    search: "Αναζήτηση",
     dashboard_title: "Πίνακας Χρήστη",
-    welcome_relative: "Καλώς ήρθατε, Συγγενή",
-    welcome_partner: "Καλώς ήρθατε, Συνεργάτη",
-    relative_info: "Εδώ μπορείτε να διαχειριστείτε τις σελίδες μνήμης που δημιουργήσατε.",
-    partner_info: "Ως γραφείο τελετών, μπορείτε να προσθέσετε memorial για λογαριασμό συγγενών.",
-    create_memorial: "➕ Δημιουργία Memorial",
-    add_partner_memorial: "➕ Προσθήκη Memorial",
+    create_memorial: "Δημιουργία Memorial",
+    add_partner_memorial: "Προσθήκη Memorial",
     memorial_page: "Σελίδα Μνήμης",
+    report_memorial: "Αναφορά Memorial",
     comments: "Σχόλια/Ευχές",
     submit_comment: "Υποβολή",
-    report_memorial: "Αναφορά Memorial"
+    admin_panel: "Πίνακας Διαχείρισης",
+    pending_memorials: "Memorials προς Έγκριση",
+    pending_partners: "Αιτήματα Συνεργατών"
   },
   en: {
     site_title: "MNIMIS.GR",
     home_title: "Digital Memorial Pages",
-    home_description: "We create space to honor your loved ones. Using QR/NFC technology, we provide unique digital memorial pages with photos, videos, comments, and music.",
-    home_quote: "“Memory is the only land where we can meet again.”"
+    home_description: "We create a space for the memory of your loved ones. Using QR/NFC technologies, we offer unique digital memorial pages with photos, videos, comments, and music.",
     get_started: "Get Started",
+    register_title: "Register",
+    name: "Name",
+    surname: "Surname",
+    email: "Email",
+    password: "Password",
+    confirm_password: "Confirm Password",
+    register_submit: "Register",
+    partner_register_title: "Partner Registration",
+    verify_code: "Verify Code",
+    partner_register_info: "Before registering as a partner, you must receive a unique code from our team.",
     login_button: "Login",
-    search_memorial: "Search Memorial",
-    search: "Search",
     dashboard_title: "User Dashboard",
-    welcome_relative: "Welcome, Relative",
-    welcome_partner: "Welcome, Partner",
-    relative_info: "Here you can manage your created memorial pages.",
-    partner_info: "As a funeral home, you can add memorials on behalf of relatives.",
-    create_memorial: "➕ Create Memorial",
-    add_partner_memorial: "➕ Add Memorial",
+    create_memorial: "Create Memorial",
+    add_partner_memorial: "Add Memorial",
     memorial_page: "Memorial Page",
-    comments: "Comments/Wishes",
+    report_memorial: "Report Memorial",
+    comments: "Comments / Wishes",
     submit_comment: "Submit",
-    report_memorial: "Report Memorial"
+    admin_panel: "Admin Panel",
+    pending_memorials: "Memorials Pending Approval",
+    pending_partners: "Partner Requests"
   },
   bg: {
     site_title: "MNIMIS.GR",
-    home_title: "Цифрови Мемориални Страници",
-    home_description: "Създаваме пространство за паметта на вашите близки. С помощта на QR/NFC технология предоставяме уникални мемориални страници със снимки, видео, коментари и музика.",
-    home_quote: "„Паметта е единствената земя, където можем да се срещнем отново.“"
+    home_title: "Цифрови страници за възпоменание",
+    home_description: "Създаваме пространство за спомените на вашите близки. Използвайки QR/NFC технологии, предлагаме уникални цифрови страници с снимки, видеа, коментари и музика.",
     get_started: "Започнете",
+    register_title: "Регистрация",
+    name: "Име",
+    surname: "Фамилия",
+    email: "Имейл",
+    password: "Парола",
+    confirm_password: "Потвърди паролата",
+    register_submit: "Регистрирай",
+    partner_register_title: "Регистрация на партньор",
+    verify_code: "Провери кода",
+    partner_register_info: "Преди да се регистрирате като партньор, трябва да получите уникален код от нашия екип.",
     login_button: "Вход",
-    search_memorial: "Търсене на Мемориал",
-    search: "Търси",
-    dashboard_title: "Панел на Потребителя",
-    welcome_relative: "Добре дошли, Роднина",
-    welcome_partner: "Добре дошли, Партньоре",
-    relative_info: "Тук можете да управлявате вашите мемориални страници.",
-    partner_info: "Като погребално бюро, можете да добавяте мемориали от името на роднини.",
-    create_memorial: "➕ Създай Мемориал",
-    add_partner_memorial: "➕ Добави Мемориал",
-    memorial_page: "Мемориална Страница",
-    comments: "Коментари/Пожелания",
+    dashboard_title: "Табло",
+    create_memorial: "Създай Memorial",
+    add_partner_memorial: "Добави Memorial",
+    memorial_page: "Страница на паметта",
+    report_memorial: "Докладвай Memorial",
+    comments: "Коментари / Пожелания",
     submit_comment: "Изпрати",
-    report_memorial: "Докладвай Мемориал"
+    admin_panel: "Административен Панел",
+    pending_memorials: "Memorials за одобрение",
+    pending_partners: "Заявки от партньори"
   },
   ru: {
     site_title: "MNIMIS.GR",
-    home_title: "Цифровые Мемориальные Страницы",
-    home_description: "Мы создаем пространство для памяти ваших близких. С помощью технологий QR/NFC мы предоставляем уникальные мемориальные страницы с фотографиями, видео, комментариями и музыкой.",
-    home_quote: "«Память — единственная земля, где мы можем снова встретиться.»"
+    home_title: "Цифровые страницы памяти",
+    home_description: "Мы создаем пространство для памяти ваших близких. С использованием QR/NFC технологий мы предлагаем уникальные цифровые мемориальные страницы с фотографиями, видео, комментариями и музыкой.",
     get_started: "Начать",
+    register_title: "Регистрация",
+    name: "Имя",
+    surname: "Фамилия",
+    email: "Email",
+    password: "Пароль",
+    confirm_password: "Подтвердите пароль",
+    register_submit: "Зарегистрироваться",
+    partner_register_title: "Регистрация партнера",
+    verify_code: "Проверить код",
+    partner_register_info: "Перед регистрацией партнера необходимо получить уникальный код от нашей команды.",
     login_button: "Вход",
-    search_memorial: "Поиск Мемориала",
-    search: "Поиск",
-    dashboard_title: "Панель Пользователя",
-    welcome_relative: "Добро пожаловать, Родственник",
-    welcome_partner: "Добро пожаловать, Партнёр",
-    relative_info: "Здесь вы можете управлять созданными мемориалами.",
-    partner_info: "Как похоронное бюро, вы можете добавлять мемориалы от имени родственников.",
-    create_memorial: "➕ Создать Мемориал",
-    add_partner_memorial: "➕ Добавить Мемориал",
-    memorial_page: "Мемориальная Страница",
-    comments: "Комментарии/Пожелания",
+    dashboard_title: "Панель пользователя",
+    create_memorial: "Создать Memorial",
+    add_partner_memorial: "Добавить Memorial",
+    memorial_page: "Страница памяти",
+    report_memorial: "Пожаловаться на Memorial",
+    comments: "Комментарии / Пожелания",
     submit_comment: "Отправить",
-    report_memorial: "Пожаловаться на Мемориал"
+    admin_panel: "Панель администратора",
+    pending_memorials: "Memorials на утверждение",
+    pending_partners: "Заявки партнеров"
   },
   al: {
     site_title: "MNIMIS.GR",
-    home_title: "Faqet Memoriale Digjitale",
-    home_description: "Krijojmë një hapësirë për kujtimin e të dashurve tuaj. Me teknologjinë QR/NFC ofrojmë faqe memoriale unike me foto, video, komente dhe muzikë.",
-    home_quote: "«Kujtimi është i vetmi vend ku mund të takohemi sërish.»"
+    home_title: "Faqet përkujtimore digjitale",
+    home_description: "Ne krijojmë një hapësirë për kujtimet e të dashurve tuaj. Me teknologji QR/NFC, ofrojmë faqe të veçanta përkujtimore me foto, video, komente dhe muzikë.",
     get_started: "Fillo",
-    login_button: "Hyr",
-    search_memorial: "Kërko Memorial",
-    search: "Kërko",
+    register_title: "Regjistrohu",
+    name: "Emri",
+    surname: "Mbiemri",
+    email: "Email",
+    password: "Fjalëkalimi",
+    confirm_password: "Konfirmo fjalëkalimin",
+    register_submit: "Regjistrohu",
+    partner_register_title: "Regjistrimi i Partnerit",
+    verify_code: "Verifiko Kodin",
+    partner_register_info: "Përpara regjistrimit si partner, duhet të merrni një kod unik nga ekipi ynë.",
+    login_button: "Hyrje",
     dashboard_title: "Paneli i Përdoruesit",
-    welcome_relative: "Mirë se vini, I afërm",
-    welcome_partner: "Mirë se vini, Partner",
-    relative_info: "Këtu mund të menaxhoni memorialet që keni krijuar.",
-    partner_info: "Si zyrë funerale, mund të shtoni memoriale në emër të të afërmve.",
-    create_memorial: "➕ Krijo Memorial",
-    add_partner_memorial: "➕ Shto Memorial",
-    memorial_page: "Faqe Memoriale",
-    comments: "Komente/Urime",
+    create_memorial: "Krijo Memorial",
+    add_partner_memorial: "Shto Memorial",
+    memorial_page: "Faqja Përkujtimore",
+    report_memorial: "Raporto Memorial",
+    comments: "Komente / Urime",
     submit_comment: "Dërgo",
-    report_memorial: "Raporto Memorial"
+    admin_panel: "Paneli i Administratorit",
+    pending_memorials: "Memorial në pritje të aprovimit",
+    pending_partners: "Kërkesa nga partnerë"
   }
 };
 
-// Ορισμός γλώσσας και μετάφραση όλων των στοιχείων
-function applyTranslations(lang) {
-  const elements = document.querySelectorAll("[data-lang-key]");
-  elements.forEach(el => {
+function updateLanguage(lang) {
+  document.querySelectorAll("[data-lang-key]").forEach(el => {
     const key = el.getAttribute("data-lang-key");
     if (translations[lang] && translations[lang][key]) {
       el.textContent = translations[lang][key];
     }
   });
-  localStorage.setItem("lang", lang);
+  localStorage.setItem("language", lang);
 }
 
-// Φόρτωση αποθηκευμένης γλώσσας
-document.addEventListener("DOMContentLoaded", () => {
-  const savedLang = localStorage.getItem("lang") || "el";
-  applyTranslations(savedLang);
-
+window.addEventListener("DOMContentLoaded", () => {
+  const defaultLang = localStorage.getItem("language") || "el";
+  updateLanguage(defaultLang);
   document.querySelectorAll(".flag").forEach(flag => {
     flag.addEventListener("click", () => {
-      const selected = flag.getAttribute("data-lang");
-      applyTranslations(selected);
+      updateLanguage(flag.dataset.lang);
     });
   });
 });
