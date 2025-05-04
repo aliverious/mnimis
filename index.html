@@ -1,83 +1,42 @@
 <!DOCTYPE html>
-<html lang="el" data-theme="light">
+<html lang="el">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang-key="site_title">MNIMIS.GR</title>
-
-  <!-- Security headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://www.googleapis.com;">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="X-Frame-Options" content="DENY">
-
-  <!-- Roboto font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1 id="site-title" data-lang-key="site_title">MNIMIS.GR</h1>
-      <div id="lang-switcher">
-        <img src="assets/flags/gr.png" alt="Ελληνικά" data-lang="el" class="flag">
-        <img src="assets/flags/en.png" alt="English" data-lang="en" class="flag">
-        <img src="assets/flags/bg.png" alt="Български" data-lang="bg" class="flag">
-        <img src="assets/flags/ru.png" alt="Русский" data-lang="ru" class="flag">
-        <img src="assets/flags/al.png" alt="Shqip" data-lang="al" class="flag">
+  <header style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid #ccc;">
+    <h1 data-lang-key="site_title">MNIMIS.GR</h1>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <div id="lang-switcher" style="display: flex; gap: 0.25rem;">
+        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" style="width: 24px; cursor: pointer;" />
+        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" style="width: 24px; cursor: pointer;" />
+        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" style="width: 24px; cursor: pointer;" />
+        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" style="width: 24px; cursor: pointer;" />
+        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" style="width: 24px; cursor: pointer;" />
       </div>
-      <button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+      <button id="dark-mode-toggle" title="Dark mode" style="background: none; border: none; font-size: 1.2rem; cursor: pointer;">🌙</button>
     </div>
   </header>
 
-  <main>
-    <div class="container center">
-      <section id="hero">
-        <h2 data-lang-key="home_title">Ψηφιακές Σελίδες Μνήμης</h2>
-        <p data-lang-key="home_description">Δημιουργήστε και μοιραστείτε ηλεκτρονικά μνημόσυνα με QR/NFC τεχνολογία.</p>
-        <a href="register.html" class="btn" data-lang-key="get_started">Ξεκίνα</a>
-      </section>
-    </div>
+  <main style="max-width: 600px; margin: 3rem auto; text-align: center; padding: 0 1rem;">
+    <h2 data-lang-key="home_title">Ψηφιακές Σελίδες Μνήμης</h2>
+    <p data-lang-key="home_description">
+      Δημιουργούμε χώρο για τη μνήμη των αγαπημένων σας.
+      Με τη χρήση τεχνολογιών QR/NFC, προσφέρουμε μοναδικές ψηφιακές σελίδες μνήμης που περιλαμβάνουν φωτογραφίες, βίντεο, σχόλια και μουσική.
+    </p>
+    <a href="register.html" class="btn" style="display: inline-block; margin-top: 2rem; padding: 0.75rem 2rem; background-color: #0055a5; color: #fff; border-radius: 6px; text-decoration: none;" data-lang-key="get_started">Ξεκίνα</a>
   </main>
 
-  <footer>
-    <div class="container center">
-      <p>&copy; <span id="year"></span> MNIMIS.GR</p>
-    </div>
+  <footer style="text-align: center; padding: 2rem 1rem; font-size: 0.9rem; color: #777;">
+    <p>&copy; 2025 MNIMIS.GR</p>
   </footer>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
-  <script src="js/firebase.js"></script>
-
-  <!-- Libraries for sanitization and QR code -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-  <!-- App scripts -->
-  <script src="js/lang.js"></script>
-  <script src="js/ui.js"></script>
-  <script>
-    // Dark mode toggle
-    const toggle = document.getElementById('dark-mode-toggle');
-    toggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    });
-    // Persist theme
-    const saved = localStorage.getItem('theme');
-    if (saved) document.documentElement.setAttribute('data-theme', saved);
-
-    // Dynamic year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script type="module" src="js/lang.js"></script>
+  <script type="module" src="js/ui.js"></script>
 </body>
 </html>
