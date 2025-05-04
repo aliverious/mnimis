@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-lang-key="register_title">Εγγραφή Συνεργάτη</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .container {
+      max-width: 600px;
+      margin: 3rem auto;
+      padding: 2rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .alert {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+      background-color: #ffe6e6;
+      color: #a33;
+    }
+
+    [data-theme='dark'] .alert {
+      background-color: #4a2a2a;
+      color: #fbb;
+    }
+
+    label, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .btn-main {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong data-lang-key="site_title">MNIMIS.GR</strong></div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <div id="lang-switcher">
+        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
+        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
+        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
+        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
+        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
+      </div>
+      <button id="dark-mode-toggle" title="Dark mode">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 data-lang-key="register_title">Εγγραφή Συνεργάτη</h1>
+
+    <div id="partner-code-check">
+      <label for="partnerCode" data-lang-key="partner_code_label">Εισάγετε τον Κωδικό Συνεργάτη</label>
+      <input type="text" id="partnerCode" />
+      <button id="checkCodeBtn" class="btn-main" data-lang-key="check_code">Έλεγχος Κωδικού</button>
+      <div id="errorMsg" class="alert hidden" data-lang-key="partner_code_invalid">
+        Ο κωδικός δεν είναι έγκυρος.<br>
+        Παρακαλούμε επικοινωνήστε μαζί μας στο 📞 6946772226<br>
+        Ώρες επικοινωνίας: Δευτέρα - Παρασκευή, 10:00 - 14:00<br>
+        ή στο 📧 aliverious@gmail.com
+      </div>
+    </div>
+
+    <div id="registrationForm" class="hidden">
+      <form id="partnerRegisterForm">
+        <label for="firstName" data-lang-key="first_name">Όνομα</label>
+        <input type="text" id="firstName" required />
+
+        <label for="lastName" data-lang-key="last_name">Επώνυμο</label>
+        <input type="text" id="lastName" required />
+
+        <label for="email" data-lang-key="email">Email</label>
+        <input type="email" id="email" required />
+
+        <label for="password" data-lang-key="password">Κωδικός</label>
+        <input type="password" id="password" required />
+
+        <label for="confirmPassword" data-lang-key="confirm_password">Επιβεβαίωση Κωδικού</label>
+        <input type="password" id="confirmPassword" required />
+
+        <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+
+        <button type="submit" class="btn-main" data-lang-key="register_now">Εγγραφή</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 MNIMIS.GR – Με σεβασμό στη μνήμη</p>
+  </footer>
+
+  <script type="module" src="js/lang.js"></script>
+  <script type="module" src="js/ui.js"></script>
+  <script>
+    const validPartnerCodes = ["SAR-312-2025", "MNIMIS-001", "FUNERAL2025"]; // editable list
+    const checkBtn = document.getElementById("checkCodeBtn");
+    const errorMsg = document.getElementById("errorMsg");
+    const regForm = document.getElementById("registrationForm");
+
+    checkBtn.addEventListener("click", () => {
+      const code = document.getElementById("partnerCode").value.trim();
+      if (validPartnerCodes.includes(code)) {
+        errorMsg.classList.add("hidden");
+        regForm.classList.remove("hidden");
+      } else {
+        errorMsg.classList.remove("hidden");
+        regForm.classList.add("hidden");
+      }
+    });
+  </script>
+</body>
+</html>
