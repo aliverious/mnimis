@@ -26,7 +26,17 @@ const translations = {
     admin_panel: "Πίνακας Διαχείρισης",
     pending_memorials: "Memorials προς Έγκριση",
     pending_partners: "Αιτήματα Συνεργατών",
-    select_role: "Επιλέξτε Ρόλο"
+    dashboard_relative: "Καλώς ήρθατε. Εδώ μπορείτε να δημιουργήσετε νέα σελίδα μνήμης.",
+dashboard_partner: "Καλώς ήρθατε συνεργάτη. Εδώ μπορείτε να προσθέσετε memorials για πελάτες σας.",
+dashboard_relative: "Welcome. Here you can create a new memorial page.",
+dashboard_partner: "Welcome partner. You can add memorials for your clients here.",
+dashboard_relative: "Добре дошли. Тук можете да създадете нова страница на паметта.",
+dashboard_partner: "Добре дошли партньоре. Можете да добавяте memorials за ваши клиенти.",
+dashboard_relative: "Добро пожаловать. Здесь вы можете создать новую страницу памяти.",
+dashboard_partner: "Добро пожаловать, партнер. Здесь вы можете добавить страницы памяти для своих клиентов.",
+dashboard_relative: "Mirë se vini. Këtu mund të krijoni një faqe të re përkujtimore.",
+dashboard_partner: "Mirë se erdhe partner. Mund të shtoni memorial për klientët tuaj.",
+select_role: "Επιλέξτε Ρόλο"
   },
   en: {
     site_title: "MNIMIS.GR",
@@ -54,7 +64,9 @@ const translations = {
     admin_panel: "Admin Panel",
     pending_memorials: "Memorials Pending Approval",
     pending_partners: "Partner Requests",
-    select_role: "Select Role"
+    dashboard_relative: "Καλώς ήρθατε. Εδώ μπορείτε να δημιουργήσετε νέα σελίδα μνήμης.",
+dashboard_partner: "Καλώς ήρθατε συνεργάτη. Εδώ μπορείτε να προσθέσετε memorials για πελάτες σας.",
+select_role: "Select Role"
   },
   bg: {
     site_title: "MNIMIS.GR",
@@ -82,7 +94,9 @@ const translations = {
     admin_panel: "Административен Панел",
     pending_memorials: "Memorials за одобрение",
     pending_partners: "Заявки от партньори",
-    select_role: "Изберете роля"
+    dashboard_relative: "Καλώς ήρθατε. Εδώ μπορείτε να δημιουργήσετε νέα σελίδα μνήμης.",
+dashboard_partner: "Καλώς ήρθατε συνεργάτη. Εδώ μπορείτε να προσθέσετε memorials για πελάτες σας.",
+select_role: "Изберете роля"
   },
   ru: {
     site_title: "MNIMIS.GR",
@@ -110,7 +124,9 @@ const translations = {
     admin_panel: "Панель администратора",
     pending_memorials: "Memorials на утверждение",
     pending_partners: "Заявки партнеров",
-    select_role: "Выберите роль"
+    dashboard_relative: "Καλώς ήρθατε. Εδώ μπορείτε να δημιουργήσετε νέα σελίδα μνήμης.",
+dashboard_partner: "Καλώς ήρθατε συνεργάτη. Εδώ μπορείτε να προσθέσετε memorials για πελάτες σας.",
+select_role: "Выберите роль"
   },
   al: {
     site_title: "MNIMIS.GR",
@@ -138,7 +154,9 @@ const translations = {
     admin_panel: "Paneli i Administratorit",
     pending_memorials: "Memorial në pritje të aprovimit",
     pending_partners: "Kërkesa nga partnerë",
-    select_role: "Zgjidhni rolin"
+    dashboard_relative: "Καλώς ήρθατε. Εδώ μπορείτε να δημιουργήσετε νέα σελίδα μνήμης.",
+dashboard_partner: "Καλώς ήρθατε συνεργάτη. Εδώ μπορείτε να προσθέσετε memorials για πελάτες σας.",
+select_role: "Zgjidhni rolin"
   }
 };
 
