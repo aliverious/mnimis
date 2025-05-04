@@ -1,102 +1,128 @@
+// lang.js
 const translations = {
   el: {
     site_title: "MNIMIS.GR",
     home_title: "Ψηφιακές Σελίδες Μνήμης",
-    home_description: "Στιγμές που κρατούνται ζωντανές. Δημιουργήστε έναν ψηφιακό χώρο μνήμης για εκείνους που αγαπήσατε, με φωτογραφίες, μουσική, βίντεο και ευχές. Το MNIMIS.GR προσφέρει έναν αξιοπρεπή τρόπο να θυμόμαστε — με τεχνολογία QR και NFC.",
-    get_started: "Δημιουργία Memorial",
-    register_title: "Εγγραφή Χρήστη",
-    first_name: "Όνομα",
-    last_name: "Επώνυμο",
-    email: "Email",
-    password: "Κωδικός",
-    confirm_password: "Επιβεβαίωση Κωδικού",
-    register_now: "Εγγραφή",
-    partner_register_title: "Εγγραφή Συνεργάτη",
-    partner_register_msg: "Για να δημιουργήσετε λογαριασμό ως συνεργάτης (γραφείο τελετών), παρακαλούμε επικοινωνήστε μαζί μας για να σας δοθεί μοναδικός Αριθμός Συνεργάτη.",
-    contact_us: "☎️ 6946772226\n📧 aliverious@gmail.com",
-    back_to_register: "Επιστροφή στην Εγγραφή",
-    partner_code_label: "Εισάγετε τον Κωδικό Συνεργάτη",
-    check_code: "Έλεγχος Κωδικού",
-    partner_code_invalid: "Ο κωδικός δεν είναι έγκυρος.\nΠαρακαλούμε επικοινωνήστε μαζί μας στο 📞 6946772226\nΏρες επικοινωνίας: Δευτέρα - Παρασκευή, 10:00 - 14:00\nή στο 📧 aliverious@gmail.com"
+    home_description: "Δημιουργούμε χώρο για τη μνήμη των αγαπημένων σας. Με τη χρήση τεχνολογιών QR/NFC, προσφέρουμε μοναδικές ψηφιακές σελίδες μνήμης που περιλαμβάνουν φωτογραφίες, βίντεο, σχόλια και μουσική.",
+    get_started: "Ξεκίνα",
+    login_button: "Είσοδος",
+    search_memorial: "Αναζήτηση Memorial",
+    search: "Αναζήτηση",
+    dashboard_title: "Πίνακας Χρήστη",
+    welcome_relative: "Καλώς ήρθατε, Συγγενή",
+    welcome_partner: "Καλώς ήρθατε, Συνεργάτη",
+    relative_info: "Εδώ μπορείτε να διαχειριστείτε τις σελίδες μνήμης που δημιουργήσατε.",
+    partner_info: "Ως γραφείο τελετών, μπορείτε να προσθέσετε memorial για λογαριασμό συγγενών.",
+    create_memorial: "➕ Δημιουργία Memorial",
+    add_partner_memorial: "➕ Προσθήκη Memorial",
+    memorial_page: "Σελίδα Μνήμης",
+    comments: "Σχόλια/Ευχές",
+    submit_comment: "Υποβολή",
+    report_memorial: "Αναφορά Memorial"
   },
   en: {
     site_title: "MNIMIS.GR",
     home_title: "Digital Memorial Pages",
-    home_description: "Moments that stay alive. Create a digital memorial space for your loved ones with photos, music, videos and wishes. MNIMIS.GR offers a respectful way to remember — with QR and NFC technology.",
-    get_started: "Create Memorial",
-    register_title: "Register",
-    first_name: "First Name",
-    last_name: "Last Name",
-    email: "Email",
-    password: "Password",
-    confirm_password: "Confirm Password",
-    register_now: "Register",
-    partner_register_title: "Partner Registration",
-    partner_register_msg: "To register as a partner (funeral home), please contact us to receive your unique Partner ID.",
-    contact_us: "☎️ 6946772226\n📧 aliverious@gmail.com",
-    back_to_register: "Back to Registration",
-    partner_code_label: "Enter Partner Code",
-    check_code: "Verify Code",
-    partner_code_invalid: "The code is not valid.\nPlease contact us at 📞 6946772226\nAvailable: Monday to Friday, 10:00 - 14:00\nor via 📧 aliverious@gmail.com"
+    home_description: "We create space to honor your loved ones. Using QR/NFC technology, we provide unique digital memorial pages with photos, videos, comments, and music.",
+    get_started: "Get Started",
+    login_button: "Login",
+    search_memorial: "Search Memorial",
+    search: "Search",
+    dashboard_title: "User Dashboard",
+    welcome_relative: "Welcome, Relative",
+    welcome_partner: "Welcome, Partner",
+    relative_info: "Here you can manage your created memorial pages.",
+    partner_info: "As a funeral home, you can add memorials on behalf of relatives.",
+    create_memorial: "➕ Create Memorial",
+    add_partner_memorial: "➕ Add Memorial",
+    memorial_page: "Memorial Page",
+    comments: "Comments/Wishes",
+    submit_comment: "Submit",
+    report_memorial: "Report Memorial"
   },
   bg: {
     site_title: "MNIMIS.GR",
-    home_title: "Дигитални Мемориални Страници",
-    home_description: "Моменти, които остават живи. Създайте дигитално място за спомен за вашите близки с снимки, музика, видеа и пожелания. MNIMIS.GR предлага достоен начин за спомняне — с QR и NFC технологии.",
-    get_started: "Създай Мемориал",
-    register_title: "Регистрация",
-    first_name: "Име",
-    last_name: "Фамилия",
-    email: "Имейл",
-    password: "Парола",
-    confirm_password: "Потвърдете паролата",
-    register_now: "Регистрирай се",
-    partner_register_title: "Регистрация на Партньор",
-    partner_register_msg: "За да се регистрирате като партньор (погребална агенция), моля свържете се с нас, за да получите уникален партньорски номер.",
-    contact_us: "☎️ 6946772226\n📧 aliverious@gmail.com",
-    back_to_register: "Назад към Регистрацията",
-    partner_code_label: "Въведете Партньорски Код",
-    check_code: "Проверка на Кода",
-    partner_code_invalid: "Кодът не е валиден.\nМоля, свържете се с нас на 📞 6946772226\nЧасове за контакт: Пон - Петък, 10:00 - 14:00\nили на 📧 aliverious@gmail.com"
+    home_title: "Цифрови Мемориални Страници",
+    home_description: "Създаваме пространство за паметта на вашите близки. С помощта на QR/NFC технология предоставяме уникални мемориални страници със снимки, видео, коментари и музика.",
+    get_started: "Започнете",
+    login_button: "Вход",
+    search_memorial: "Търсене на Мемориал",
+    search: "Търси",
+    dashboard_title: "Панел на Потребителя",
+    welcome_relative: "Добре дошли, Роднина",
+    welcome_partner: "Добре дошли, Партньоре",
+    relative_info: "Тук можете да управлявате вашите мемориални страници.",
+    partner_info: "Като погребално бюро, можете да добавяте мемориали от името на роднини.",
+    create_memorial: "➕ Създай Мемориал",
+    add_partner_memorial: "➕ Добави Мемориал",
+    memorial_page: "Мемориална Страница",
+    comments: "Коментари/Пожелания",
+    submit_comment: "Изпрати",
+    report_memorial: "Докладвай Мемориал"
   },
   ru: {
     site_title: "MNIMIS.GR",
     home_title: "Цифровые Мемориальные Страницы",
-    home_description: "Моменты, которые остаются живыми. Создайте цифровое мемориальное пространство для своих близких с фотографиями, музыкой, видео и пожеланиями. MNIMIS.GR предлагает достойный способ помнить — с технологией QR и NFC.",
-    get_started: "Создать Мемориал",
-    register_title: "Регистрация",
-    first_name: "Имя",
-    last_name: "Фамилия",
-    email: "Эл. почта",
-    password: "Пароль",
-    confirm_password: "Подтверждение пароля",
-    register_now: "Зарегистрироваться",
-    partner_register_title: "Регистрация Партнёра",
-    partner_register_msg: "Чтобы зарегистрироваться как партнёр (ритуальная служба), пожалуйста, свяжитесь с нами для получения уникального партнёрского кода.",
-    contact_us: "☎️ 6946772226\n📧 aliverious@gmail.com",
-    back_to_register: "Назад к регистрации",
-    partner_code_label: "Введите Код Партнёра",
-    check_code: "Проверить Код",
-    partner_code_invalid: "Код недействителен.\nПожалуйста, свяжитесь с нами по телефону 📞 6946772226\nКонтактные часы: Пн - Пт, 10:00 - 14:00\nили на 📧 aliverious@gmail.com"
+    home_description: "Мы создаем пространство для памяти ваших близких. С помощью технологий QR/NFC мы предоставляем уникальные мемориальные страницы с фотографиями, видео, комментариями и музыкой.",
+    get_started: "Начать",
+    login_button: "Вход",
+    search_memorial: "Поиск Мемориала",
+    search: "Поиск",
+    dashboard_title: "Панель Пользователя",
+    welcome_relative: "Добро пожаловать, Родственник",
+    welcome_partner: "Добро пожаловать, Партнёр",
+    relative_info: "Здесь вы можете управлять созданными мемориалами.",
+    partner_info: "Как похоронное бюро, вы можете добавлять мемориалы от имени родственников.",
+    create_memorial: "➕ Создать Мемориал",
+    add_partner_memorial: "➕ Добавить Мемориал",
+    memorial_page: "Мемориальная Страница",
+    comments: "Комментарии/Пожелания",
+    submit_comment: "Отправить",
+    report_memorial: "Пожаловаться на Мемориал"
   },
   al: {
     site_title: "MNIMIS.GR",
-    home_title: "Faqe Memoriale Dixhitale",
-    home_description: "Momente që mbeten të gjalla. Krijoni një hapësirë dixhitale përkujtimore për të dashurit tuaj me foto, muzikë, video dhe urime. MNIMIS.GR ofron një mënyrë të denjë për të kujtuar — me teknologjinë QR dhe NFC.",
-    get_started: "Krijo Memorial",
-    register_title: "Regjistrohu",
-    first_name: "Emri",
-    last_name: "Mbiemri",
-    email: "Email",
-    password: "Fjalëkalimi",
-    confirm_password: "Konfirmo fjalëkalimin",
-    register_now: "Regjistrohu",
-    partner_register_title: "Regjistrimi i Partnerit",
-    partner_register_msg: "Për të krijuar një llogari si partner (zyrë funerale), ju lutemi kontaktoni me ne për të marrë një Numër Unik Partneri.",
-    contact_us: "☎️ 6946772226\n📧 aliverious@gmail.com",
-    back_to_register: "Kthehu te Regjistrimi",
-    partner_code_label: "Shkruani Kodin e Partnerit",
-    check_code: "Verifiko Kodin",
-    partner_code_invalid: "Kodi nuk është i vlefshëm.\nJu lutemi na kontaktoni në 📞 6946772226\nOrari: E Hënë - E Premte, 10:00 - 14:00\nosé në 📧 aliverious@gmail.com"
+    home_title: "Faqet Memoriale Digjitale",
+    home_description: "Krijojmë një hapësirë për kujtimin e të dashurve tuaj. Me teknologjinë QR/NFC ofrojmë faqe memoriale unike me foto, video, komente dhe muzikë.",
+    get_started: "Fillo",
+    login_button: "Hyr",
+    search_memorial: "Kërko Memorial",
+    search: "Kërko",
+    dashboard_title: "Paneli i Përdoruesit",
+    welcome_relative: "Mirë se vini, I afërm",
+    welcome_partner: "Mirë se vini, Partner",
+    relative_info: "Këtu mund të menaxhoni memorialet që keni krijuar.",
+    partner_info: "Si zyrë funerale, mund të shtoni memoriale në emër të të afërmve.",
+    create_memorial: "➕ Krijo Memorial",
+    add_partner_memorial: "➕ Shto Memorial",
+    memorial_page: "Faqe Memoriale",
+    comments: "Komente/Urime",
+    submit_comment: "Dërgo",
+    report_memorial: "Raporto Memorial"
   }
 };
+
+// Ορισμός γλώσσας και μετάφραση όλων των στοιχείων
+function applyTranslations(lang) {
+  const elements = document.querySelectorAll("[data-lang-key]");
+  elements.forEach(el => {
+    const key = el.getAttribute("data-lang-key");
+    if (translations[lang] && translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+  localStorage.setItem("lang", lang);
+}
+
+// Φόρτωση αποθηκευμένης γλώσσας
+document.addEventListener("DOMContentLoaded", () => {
+  const savedLang = localStorage.getItem("lang") || "el";
+  applyTranslations(savedLang);
+
+  document.querySelectorAll(".flag").forEach(flag => {
+    flag.addEventListener("click", () => {
+      const selected = flag.getAttribute("data-lang");
+      applyTranslations(selected);
+    });
+  });
+});
