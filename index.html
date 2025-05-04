@@ -6,94 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang-key="site_title">MNIMIS.GR</title>
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 2rem;
-      background-color: #fff;
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    #lang-switcher {
-      display: flex;
-      gap: 0.3rem;
-    }
-
-    .flag {
-      width: 24px;
-      cursor: pointer;
-    }
-
-    #dark-mode-toggle {
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    main {
-      max-width: 720px;
-      margin: 5rem auto;
-      text-align: center;
-      padding: 0 1rem;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-    }
-
-    .btn-main {
-      background-color: #1d3557;
-      color: white;
-      padding: 0.75rem 2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: background-color 0.3s;
-    }
-
-    .btn-main:hover {
-      background-color: #457b9d;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.9rem;
-      color: #777;
-      background-color: #fff;
-      border-top: 1px solid #e0e0e0;
-    }
-
-    [data-theme='dark'] body {
-      background: #1c1c1c;
-      color: #eee;
-    }
-
-    [data-theme='dark'] header,
-    [data-theme='dark'] footer {
-      background-color: #2a2a2a;
-      border-color: #444;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -110,10 +22,10 @@
     </div>
   </header>
 
-  <main>
+  <main class="container" style="text-align: center; padding: 4rem 1rem;">
     <h1 data-lang-key="home_title">Ψηφιακές Σελίδες Μνήμης</h1>
     <p data-lang-key="home_description">
-      Στιγμές που κρατούνται ζωντανές. Δημιουργήστε έναν ψηφιακό χώρο μνήμης για εκείνους που αγαπήσατε, με φωτογραφίες, μουσική, βίντεο και ευχές.  
+      Στιγμές που κρατούνται ζωντανές. Δημιουργήστε έναν ψηφιακό χώρο μνήμης για εκείνους που αγαπήσατε, με φωτογραφίες, μουσική, βίντεο και ευχές.
       Το MNIMIS.GR προσφέρει έναν αξιοπρεπή τρόπο να θυμόμαστε — με τεχνολογία QR και NFC.
     </p>
     <a href="register.html" class="btn-main" data-lang-key="get_started">Δημιουργία Memorial</a>
