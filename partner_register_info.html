@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-lang-key="partner_register_title">Εγγραφή Συνεργάτη</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .info-box {
+      max-width: 600px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .info-box p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    [data-theme='dark'] .info-box {
+      background: #2a2a2a;
+      color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong data-lang-key="site_title">MNIMIS.GR</strong></div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <div id="lang-switcher">
+        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
+        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
+        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
+        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
+        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
+      </div>
+      <button id="dark-mode-toggle" title="Dark mode">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="info-box">
+      <h1 data-lang-key="partner_register_title">Εγγραφή Συνεργάτη</h1>
+      <p data-lang-key="partner_register_msg">
+        Για να δημιουργήσετε λογαριασμό ως συνεργάτης (γραφείο τελετών), παρακαλούμε επικοινωνήστε μαζί μας για να σας δοθεί μοναδικός Αριθμός Συνεργάτη.
+      </p>
+      <p data-lang-key="contact_us">
+        ☎️ 6946772226<br>
+        📧 aliverious@gmail.com
+      </p>
+      <a href="register.html" class="btn-main" data-lang-key="back_to_register">Επιστροφή στην Εγγραφή</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 MNIMIS.GR – Με σεβασμό στη μνήμη</p>
+  </footer>
+
+  <script type="module" src="js/lang.js"></script>
+  <script type="module" src="js/ui.js"></script>
+</body>
+</html>
