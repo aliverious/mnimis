@@ -2,7 +2,7 @@
 <html lang="el">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title data-lang-key="register_title">Εγγραφή</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -21,44 +21,23 @@
     </div>
   </header>
 
-  <main class="container" style="max-width: 500px;">
-    <h2 data-lang-key="register_select_role">Επιλέξτε Ρόλο</h2>
-    <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
-      <button onclick="selectRole('relative')" class="btn-main" data-lang-key="register_as_relative">Συγγενής</button>
-      <button onclick="goToPartnerPage()" class="btn" data-lang-key="register_as_partner">Συνεργάτης</button>
+  <main class="container">
+    <h2 data-lang-key="register_title">Εγγραφή</h2>
+
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h3 data-lang-key="select_role">Επιλέξτε Ρόλο</h3>
+      <button type="button" id="btn-relative" class="btn" data-lang-key="role_relative">Συγγενής</button>
+      <button type="button" id="btn-partner" class="btn" data-lang-key="role_partner">Συνεργάτης</button>
     </div>
 
-    <form id="relativeForm" style="display: none;" onsubmit="registerRelative(event)">
-      <label data-lang-key="name">Όνομα</label>
-      <input type="text" id="name" required />
+    <form id="registerForm" style="display: none;">
+      <input type="text" id="name" placeholder="Όνομα" data-lang-key="name" required />
+      <input type="text" id="surname" placeholder="Επώνυμο" data-lang-key="surname" required />
+      <input type="email" id="email" placeholder="Email" data-lang-key="email" required />
+      <input type="password" id="password" placeholder="Κωδικός" data-lang-key="password" required />
+      <input type="password" id="confirmPassword" placeholder="Επιβεβαίωση Κωδικού" data-lang-key="confirm_password" required />
 
-      <label data-lang-key="surname">Επώνυμο</label>
-      <input type="text" id="surname" required />
-
-      <label data-lang-key="email">Email</label>
-      <input type="email" id="email" required />
-
-      <label data-lang-key="password">Κωδικός</label>
-      <input type="password" id="password" required />
-
-      <label data-lang-key="confirm_password">Επιβεβαίωση Κωδικού</label>
-      <input type="password" id="confirmPassword" required />
-
-      <label><input type="checkbox" id="notRobot" required /> <span data-lang-key="not_robot">Δεν είμαι ρομπότ</span></label>
-
-      <div id="errorMessage" style="color: red; margin-top: 1rem;"></div>
-
-      <div style="margin: 1rem 0;">
-        <button type="submit" class="btn-main" data-lang-key="register_submit">Εγγραφή</button>
-      </div>
-
-      <p style="text-align: center;">ή</p>
-
-      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-        <button type="button" class="btn" onclick="socialLogin('google')">🔵 Google</button>
-        <button type="button" class="btn" onclick="socialLogin('facebook')">🔷 Facebook</button>
-        <button type="button" class="btn" onclick="socialLogin('microsoft')">🟣 Microsoft</button>
-      </div>
+      <button type="submit" class="btn-main" data-lang-key="register_submit">Εγγραφή</button>
     </form>
   </main>
 
@@ -69,44 +48,5 @@
   <script type="module" src="js/lang.js"></script>
   <script type="module" src="js/ui.js"></script>
   <script type="module" src="js/auth.js"></script>
-  <script>
-    function selectRole(role) {
-      if (role === 'relative') {
-        document.getElementById('relativeForm').style.display = 'block';
-      }
-    }
-
-    function goToPartnerPage() {
-      window.location.href = "register_partner.html";
-    }
-
-    function socialLogin(provider) {
-      alert("Social login μέσω " + provider + " – σύνδεση υπό ανάπτυξη.");
-    }
-
-    function registerRelative(event) {
-      event.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const surname = document.getElementById("surname").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
-      const notRobot = document.getElementById("notRobot").checked;
-      const errorEl = document.getElementById("errorMessage");
-
-      if (!notRobot) {
-        errorEl.textContent = "Πρέπει να επιβεβαιώσετε ότι δεν είστε ρομπότ.";
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        errorEl.textContent = "Οι κωδικοί δεν ταιριάζουν.";
-        return;
-      }
-
-      errorEl.textContent = "";
-      window.registerRelativeUser({ name, surname, email, password });
-    }
-  </script>
 </body>
 </html>
