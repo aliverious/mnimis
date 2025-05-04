@@ -1,72 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="el">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang-key="memorial_page">Σελίδα Μνήμης</title>
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    .memorial-container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
-
-    .memorial-header {
-      text-align: center;
-    }
-
-    .memorial-photo {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 1rem auto;
-      display: block;
-    }
-
-    .info-block {
-      margin: 1rem 0;
-      font-size: 1.1rem;
-      text-align: center;
-    }
-
-    iframe {
-      max-width: 100%;
-      margin-top: 1rem;
-    }
-
-    .comment-section {
-      margin-top: 2rem;
-    }
-
-    .map-section {
-      margin-top: 2rem;
-      height: 300px;
-    }
-
-    .report-button {
-      display: block;
-      margin: 2rem auto;
-      padding: 0.5rem 1.5rem;
-      background-color: #a00;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    [data-theme='dark'] .report-button {
-      background-color: #c33;
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <div><strong data-lang-key="site_title">MNIMIS.GR</strong></div>
+  <header class="top-bar">
+    <h1 data-lang-key="site_title">MNIMIS.GR</h1>
     <div style="display: flex; align-items: center; gap: 1rem;">
-      <div id="lang-switcher">
+      <div id="lang-switcher" style="display: flex; gap: 0.3rem;">
         <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
         <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
         <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
@@ -77,34 +21,38 @@
     </div>
   </header>
 
-  <main class="memorial-container">
-    <div class="memorial-header">
-      <img id="memorial-photo" class="memorial-photo" src="assets/images/default.png" alt="photo" />
-      <h1 id="memorial-name">...</h1>
-      <p id="memorial-dates">...</p>
-      <p id="memorial-birthplace">...</p>
+  <main class="container memorial">
+    <div id="memorialContent">
+      <img id="photo" src="" alt="Φωτογραφία" style="max-width: 200px; border-radius: 8px;" />
+      <h2 id="fullName">...</h2>
+      <p id="birthPlace">...</p>
+      <p id="lifespan">...</p>
+
+      <div id="videoSection" style="margin: 2rem 0;"></div>
+
+      <div id="musicSection" style="margin-bottom: 2rem;"></div>
+
+      <div id="map" style="width: 100%; height: 250px; margin-bottom: 2rem;"></div>
+
+      <button class="btn" onclick="reportMemorial()" data-lang-key="report_memorial">Αναφορά Memorial</button>
+
+      <section style="margin-top: 3rem;">
+        <h3 data-lang-key="comments">Σχόλια/Ευχές</h3>
+        <form onsubmit="submitComment(event)">
+          <textarea id="commentText" required placeholder="Γράψτε κάτι..."></textarea>
+          <button type="submit" class="btn" data-lang-key="submit_comment">Υποβολή</button>
+        </form>
+        <div id="commentList" style="margin-top: 1rem;"></div>
+      </section>
     </div>
-
-    <iframe id="memorial-video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-
-    <div class="comment-section">
-      <h2 data-lang-key="comments">Σχόλια/Ευχές</h2>
-      <textarea placeholder="Αφήστε ένα μήνυμα..." rows="4" style="width:100%"></textarea>
-      <button data-lang-key="submit_comment">Υποβολή</button>
-    </div>
-
-    <div class="map-section" id="map"></div>
-
-    <button class="report-button" data-lang-key="report_memorial">Αναφορά Memorial</button>
   </main>
 
   <footer>
-    <p>&copy; 2025 MNIMIS.GR – Με σεβασμό στη μνήμη</p>
+    <p>&copy; 2025 MNIMIS.GR</p>
   </footer>
 
   <script type="module" src="js/lang.js"></script>
   <script type="module" src="js/ui.js"></script>
   <script type="module" src="js/memorial.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
 </body>
 </html>
