@@ -1,82 +1,95 @@
-// js/auth.js
-// Authentication logic: register, login, dashboard init, logout
-import { auth, db } from "./firebase.js";
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import {
+  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
 import {
+  getFirestore,
   doc,
-  setDoc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
-import { displayAlert } from "./ui.js";
+  setDoc
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-/**
- * Register a new user and store role
- */
-export async function registerUser(e) {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const role = document.getElementById('role').value;
-  try {
-    const userCred = await createUserWithEmailAndPassword(auth, email, password);
-    await setDoc(doc(db, 'users', userCred.user.uid), { role, email, createdAt: new Date() });
-    window.location = 'dashboard.html';
-  } catch (err) {
-    console.error(err);
-    displayAlert(err.message, 'error');
-  }
-}
+import { firebaseConfig } from './firebase.js';
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-/**
- * Login existing user
- */
-export async function loginUser(e) {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    window.location = 'dashboard.html';
-  } catch (err) {
-    console.error(err);
-    displayAlert(err.message, 'error');
-  }
-}
+// Εγγραφή συγγενή
+const relativeForm = document.getElementById("registerRelativeForm");
+if (relativeForm) {
+  relativeForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-/**
- * Initialize dashboard: show controls based on role
- */
-export function initDashboard() {
-  onAuthStateChanged(auth, async user => {
-    if (!user) {
-      window.location = 'login.html';
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+      alert("Οι κωδικοί δεν ταιριάζουν.");
       return;
     }
-    const snap = await getDoc(doc(db, 'users', user.uid));
-    const { role, email } = snap.data();
-    document.getElementById('user-name').textContent = email;
-    const controls = document.getElementById('controls');
-    if (role === 'funeral_home') {
-      controls.innerHTML = `
-        <a href="memorial.html" class="btn" data-lang-key="create_memorial">Δημιουργία Memorial</a>
-        <a href="admin.html" class="btn" data-lang-key="manage_memorials">Διαχείριση Memorials</a>
-      `;
-    } else {
-      controls.innerHTML = `<p data-lang-key="welcome_relative">Καλώς ήρθες συγγενή!</p>`;
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+      await setDoc(doc(db, "users", uid), {
+        firstName,
+        lastName,
+        email,
+        role: "relative"
+      });
+      alert("Επιτυχής εγγραφή!");
+      window.location.href = "dashboard.html";
+    } catch (error) {
+      alert("Σφάλμα: " + error.message);
     }
   });
 }
 
-/**
- * Logout current user
- */
-export async function logoutUser() {
-  await signOut(auth);
-  window.location = 'login.html';
+// Εγγραφή συνεργάτη
+const partnerForm = document.getElementById("partnerRegisterForm");
+if (partnerForm) {
+  partnerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const partnerCode = document.getElementById("partnerCode")?.value.trim();
+
+    if (password !== confirmPassword) {
+      alert("Οι κωδικοί δεν ταιριάζουν.");
+      return;
+    }
+
+    if (!partnerCode) {
+      alert("Απαιτείται έγκυρος Κωδικός Συνεργάτη.");
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+      await setDoc(doc(db, "users", uid), {
+        firstName,
+        lastName,
+        email,
+        role: "partner",
+        partnerCode
+      });
+      alert("Επιτυχής εγγραφή συνεργάτη!");
+      window.location.href = "dashboard.html";
+    } catch (error) {
+      alert("Σφάλμα: " + error.message);
+    }
+  });
 }
-```
