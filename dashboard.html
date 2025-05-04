@@ -2,7 +2,7 @@
 <html lang="el">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title data-lang-key="dashboard_title">Πίνακας Χρήστη</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -21,13 +21,10 @@
     </div>
   </header>
 
-  <main class="container" style="text-align: center;">
-    <h2 id="welcomeMessage">Καλώς ήρθατε!</h2>
-    <p id="roleInfoText"></p>
-
-    <div style="margin-top: 2rem;">
-      <button class="btn-main" id="createMemorialBtn" style="display: none;" data-lang-key="create_memorial">➕ Δημιουργία Memorial</button>
-      <button class="btn-main" id="addPartnerMemorialBtn" style="display: none;" data-lang-key="add_partner_memorial">➕ Προσθήκη Memorial</button>
+  <main class="container">
+    <h2 data-lang-key="dashboard_title">Πίνακας Χρήστη</h2>
+    <div id="dashboardContent">
+      <!-- Περιεχόμενο δυναμικό ανά ρόλο -->
     </div>
   </main>
 
@@ -37,44 +34,6 @@
 
   <script type="module" src="js/lang.js"></script>
   <script type="module" src="js/ui.js"></script>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-    import { firebaseConfig } from "./js/firebase.js";
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    const welcomeEl = document.getElementById("welcomeMessage");
-    const infoEl = document.getElementById("roleInfoText");
-    const btnRelative = document.getElementById("createMemorialBtn");
-    const btnPartner = document.getElementById("addPartnerMemorialBtn");
-
-    onAuthStateChanged(auth, async user => {
-      if (!user) {
-        alert("Παρακαλούμε συνδεθείτε πρώτα.");
-        window.location.href = "login.html";
-        return;
-      }
-
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      if (userDoc.exists()) {
-        const role = userDoc.data().role;
-        if (role === "relative") {
-          welcomeEl.textContent = "Καλώς ήρθατε, Συγγενή!";
-          infoEl.textContent = "Εδώ μπορείτε να διαχειριστείτε τις σελίδες μνήμης που δημιουργήσατε.";
-          btnRelative.style.display = "inline-block";
-        } else if (role === "partner") {
-          welcomeEl.textContent = "Καλώς ήρθατε, Συνεργάτη!";
-          infoEl.textContent = "Ως γραφείο τελετών, μπορείτε να προσθέσετε memorial για λογαριασμό συγγενών.";
-          btnPartner.style.display = "inline-block";
-        }
-      } else {
-        welcomeEl.textContent = "Δεν βρέθηκαν δεδομένα χρήστη.";
-      }
-    });
-  </script>
+  <script type="module" src="js/dashboard.js"></script>
 </body>
 </html>
