@@ -4,6 +4,7 @@ const translations = {
     site_title: "MNIMIS.GR",
     home_title: "Ψηφιακές Σελίδες Μνήμης",
     home_description: "Δημιουργούμε χώρο για τη μνήμη των αγαπημένων σας. Με τη χρήση τεχνολογιών QR/NFC, προσφέρουμε μοναδικές ψηφιακές σελίδες μνήμης που περιλαμβάνουν φωτογραφίες, βίντεο, σχόλια και μουσική.",
+    home_quote: "«Η μνήμη είναι η μόνη γη όπου μπορούμε να ξανασυναντηθούμε.»"
     get_started: "Ξεκίνα",
     login_button: "Είσοδος",
     search_memorial: "Αναζήτηση Memorial",
@@ -24,6 +25,7 @@ const translations = {
     site_title: "MNIMIS.GR",
     home_title: "Digital Memorial Pages",
     home_description: "We create space to honor your loved ones. Using QR/NFC technology, we provide unique digital memorial pages with photos, videos, comments, and music.",
+    home_quote: "“Memory is the only land where we can meet again.”"
     get_started: "Get Started",
     login_button: "Login",
     search_memorial: "Search Memorial",
@@ -44,6 +46,7 @@ const translations = {
     site_title: "MNIMIS.GR",
     home_title: "Цифрови Мемориални Страници",
     home_description: "Създаваме пространство за паметта на вашите близки. С помощта на QR/NFC технология предоставяме уникални мемориални страници със снимки, видео, коментари и музика.",
+    home_quote: "„Паметта е единствената земя, където можем да се срещнем отново.“"
     get_started: "Започнете",
     login_button: "Вход",
     search_memorial: "Търсене на Мемориал",
@@ -64,6 +67,7 @@ const translations = {
     site_title: "MNIMIS.GR",
     home_title: "Цифровые Мемориальные Страницы",
     home_description: "Мы создаем пространство для памяти ваших близких. С помощью технологий QR/NFC мы предоставляем уникальные мемориальные страницы с фотографиями, видео, комментариями и музыкой.",
+    home_quote: "«Память — единственная земля, где мы можем снова встретиться.»"
     get_started: "Начать",
     login_button: "Вход",
     search_memorial: "Поиск Мемориала",
@@ -84,6 +88,7 @@ const translations = {
     site_title: "MNIMIS.GR",
     home_title: "Faqet Memoriale Digjitale",
     home_description: "Krijojmë një hapësirë për kujtimin e të dashurve tuaj. Me teknologjinë QR/NFC ofrojmë faqe memoriale unike me foto, video, komente dhe muzikë.",
+    home_quote: "«Kujtimi është i vetmi vend ku mund të takohemi sërish.»"
     get_started: "Fillo",
     login_button: "Hyr",
     search_memorial: "Kërko Memorial",
