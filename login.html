@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="el" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-lang-key="login_title">Είσοδος | MNIMIS.GR</title>
+
+  <!-- Security headers -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://www.googleapis.com;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+
+  <!-- Roboto font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 id="site-title" data-lang-key="site_title">MNIMIS.GR</h1>
+      <div id="lang-switcher">
+        <img src="assets/flags/gr.png" alt="Ελληνικά" data-lang="el" class="flag">
+        <img src="assets/flags/en.png" alt="English" data-lang="en" class="flag">
+        <img src="assets/flags/bg.png" alt="Български" data-lang="bg" class="flag">
+        <img src="assets/flags/ru.png" alt="Русский" data-lang="ru" class="flag">
+        <img src="assets/flags/al.png" alt="Shqip" data-lang="al" class="flag">
+      </div>
+      <button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="container center">
+      <h2 data-lang-key="login_heading">Σύνδεση</h2>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email" data-lang-key="email_label">Email:</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password" data-lang-key="password_label">Κωδικός:</label>
+          <input type="password" id="password" required>
+        </div>
+        <button type="submit" class="btn" data-lang-key="login_button">Σύνδεση</button>
+      </form>
+      <p><a href="register.html" data-lang-key="no_account">Δεν έχω λογαριασμό</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container center">
+      <p>&copy; <span id="year"></span> MNIMIS.GR</p>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
+  <script src="js/firebase.js"></script>
+
+  <!-- Libraries for sanitization and QR code -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- App scripts -->
+  <script src="js/lang.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js" type="module"></script>
+  <script>
+    // Persist theme & year
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Handle form
+    document.getElementById('login-form').addEventListener('submit', loginUser);
+  </script>
+</body>
+</html>

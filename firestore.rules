@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users collection: only admins can read/write other users
+    match /users/{userId} {
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null;
+      allow delete: if false;
+    }
+
+    // Memorials collection
+    match /memorials/{memorialId} {
+      // Public can read only approved
+      allow get: if resource.data.status == 'approved';
+      allow list: if false;
+      // Funeral homes can create
+      allow create: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'funeral_home';
+      // Owners (creator) and admins can update
+      allow update: if request.auth != null && (
+          request.auth.uid == resource.data.ownerId
+        || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'
+      );
+      allow delete: if false;
+
+      // Subcollection comments
+      match /comments/{commentId} {
+        allow create: if request.auth != null;
+        allow read: if resource.data.approved == true;
+        allow update, delete: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      }
+    }
+  }
+}
