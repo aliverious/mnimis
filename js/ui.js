@@ -1,89 +1,4 @@
-// js/ui.js
-// UI helper functions
 
-/**
- * Show a loading overlay
- */
-export function showLoader() {
-  let loader = document.getElementById('loader-overlay');
-  if (!loader) {
-    loader = document.createElement('div');
-    loader.id = 'loader-overlay';
-    loader.style.position = 'fixed';
-    loader.style.top = '0';
-    loader.style.left = '0';
-    loader.style.width = '100%';
-    loader.style.height = '100%';
-    loader.style.background = 'rgba(0, 0, 0, 0.5)';
-    loader.style.display = 'flex';
-    loader.style.justifyContent = 'center';
-    loader.style.alignItems = 'center';
-    loader.innerHTML = '<div class="spinner"></div>';
-    document.body.appendChild(loader);
-  }
-  loader.style.display = 'flex';
-}
-
-/**
- * Hide the loading overlay
- */
-export function hideLoader() {
-  const loader = document.getElementById('loader-overlay');
-  if (loader) loader.style.display = 'none';
-}
-
-/**
- * Display a temporary alert
- * @param {string} message – Το μήνυμα που εμφανίζεται
- * @param {string} type – 'info' | 'error' | 'success'
- */
-export function displayAlert(message, type = 'info') {
-  const alert = document.createElement('div');
-  alert.className = `alert alert-${type}`;
-  alert.textContent = message;
-  Object.assign(alert.style, {
-    position: 'fixed',
-    top: '1rem',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    padding: '0.75rem 1.5rem',
-    borderRadius: '0.375rem',
-    backgroundColor: type === 'error' ? '#ff4d4f' : (type === 'success' ? '#52c41a' : '#0055A5'),
-    color: '#fff',
-    zIndex: 1000,
-    fontFamily: 'Roboto, sans-serif',
-    fontSize: '1rem',
-    boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
-  });
-  document.body.appendChild(alert);
-  setTimeout(() => alert.remove(), 3000);
-}
-
-/**
- * Generate a QR code inside a container
- * @param {string} containerId – Το id του element όπου θα μπεί το QR
- * @param {string} text – Το κείμενο/URL που κωδικοποιείται
- */
-export async function generateQRCode(containerId, text) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-  // Υποθέτουμε ότι έχουμε φορτώσει ήδη τη βιβλιοθήκη QRCode.js
-  new QRCode(container, {
-    text,
-    width: 128,
-    height: 128
-  });
-}
-
-// Dark mode persistence on load
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-  document.documentElement.setAttribute('data-theme', savedTheme);
-}
-
-/**
- * Toggle dark mode
- */
 export function toggleDarkMode() {
   const current = document.documentElement.getAttribute('data-theme') || 'light';
   const next = current === 'light' ? 'dark' : 'light';
@@ -91,12 +6,70 @@ export function toggleDarkMode() {
   localStorage.setItem('theme', next);
 }
 
-/**
- * Sanitize input with DOMPurify
- * @param {string} input – Το ακατέργαστο HTML/text
- * @returns {string} – Το καθαρισμένο
- */
-// Υποθέτουμε ότι η βιβλιοθήκη DOMPurify είναι φορτωμένη global
-export function sanitize(input) {
-  return DOMPurify.sanitize(input);
+export function showLoader() {
+  if (!document.getElementById('loader-overlay')) {
+    const loader = document.createElement('div');
+    loader.id = 'loader-overlay';
+    loader.style.position = 'fixed';
+    loader.style.top = '0';
+    loader.style.left = '0';
+    loader.style.width = '100%';
+    loader.style.height = '100%';
+    loader.style.background = 'rgba(0,0,0,0.5)';
+    loader.style.display = 'flex';
+    loader.style.alignItems = 'center';
+    loader.style.justifyContent = 'center';
+    loader.style.zIndex = '9999';
+    loader.innerHTML = '<div class="spinner" style="border: 6px solid #f3f3f3; border-top: 6px solid #333; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;"></div>';
+    document.body.appendChild(loader);
+  } else {
+    document.getElementById('loader-overlay').style.display = 'flex';
+  }
 }
+
+export function hideLoader() {
+  const loader = document.getElementById('loader-overlay');
+  if (loader) loader.style.display = 'none';
+}
+
+export function displayAlert(message, type = 'info') {
+  const alert = document.createElement('div');
+  alert.className = 'alert';
+  alert.style.position = 'fixed';
+  alert.style.top = '1rem';
+  alert.style.left = '50%';
+  alert.style.transform = 'translateX(-50%)';
+  alert.style.padding = '0.75rem 1.5rem';
+  alert.style.borderRadius = '6px';
+  alert.style.fontSize = '1rem';
+  alert.style.color = '#fff';
+  alert.style.zIndex = '10000';
+  alert.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.3)';
+  alert.style.fontFamily = 'inherit';
+
+  switch (type) {
+    case 'success':
+      alert.style.backgroundColor = '#2ecc71';
+      break;
+    case 'error':
+      alert.style.backgroundColor = '#e74c3c';
+      break;
+    default:
+      alert.style.backgroundColor = '#3498db';
+  }
+
+  alert.textContent = message;
+  document.body.appendChild(alert);
+  setTimeout(() => alert.remove(), 3000);
+}
+
+// Dark mode toggle on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+
+  const toggleBtn = document.getElementById('dark-mode-toggle');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', toggleDarkMode);
+  }
+});
