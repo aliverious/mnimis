@@ -1,68 +1,95 @@
+
 <!DOCTYPE html>
-<html lang="el" data-theme="light">
+<html lang="el">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-lang-key="dashboard_title">Πίνακας Ελέγχου</title>
-
-  <!-- Security headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://www.googleapis.com https://firestore.googleapis.com;">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="X-Frame-Options" content="DENY">
-
-  <!-- Roboto font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-lang-key="dashboard_title">Πίνακας Χρήστη</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .dashboard-section {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .hidden {
+      display: none;
+    }
+    h2 {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <div class="container">
-      <h1 id="site-title" data-lang-key="site_title">MNIMIS.GR</h1>
-      <button id="logout-btn" class="btn">Logout</button>
+    <div><strong data-lang-key="site_title">MNIMIS.GR</strong></div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <div id="lang-switcher">
+        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
+        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
+        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
+        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
+        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
+      </div>
+      <button id="dark-mode-toggle" title="Dark mode">🌙</button>
     </div>
   </header>
 
-  <main>
-    <div class="container center">
-      <h2 data-lang-key="dashboard_heading">Καλώς ήρθες, <span id="user-name"></span></h2>
-      <div id="controls" class="controls-grid"></div>
+  <main class="dashboard-section">
+    <h1 data-lang-key="dashboard_title">Πίνακας Χρήστη</h1>
+
+    <div id="relative-dashboard" class="hidden">
+      <h2 data-lang-key="welcome_relative">Καλώς ήρθατε, Συγγενή</h2>
+      <p data-lang-key="relative_info">Εδώ μπορείτε να διαχειριστείτε τις σελίδες μνήμης που δημιουργήσατε.</p>
+      <button class="btn-main" data-lang-key="create_memorial">➕ Δημιουργία Memorial</button>
+    </div>
+
+    <div id="partner-dashboard" class="hidden">
+      <h2 data-lang-key="welcome_partner">Καλώς ήρθατε, Συνεργάτη</h2>
+      <p data-lang-key="partner_info">Ως γραφείο τελετών, μπορείτε να προσθέσετε memorial για λογαριασμό συγγενών.</p>
+      <button class="btn-main" data-lang-key="add_partner_memorial">➕ Προσθήκη Memorial</button>
     </div>
   </main>
 
   <footer>
-    <div class="container center">
-      <p>&copy; <span id="year"></span> MNIMIS.GR</p>
-    </div>
+    <p>&copy; 2025 MNIMIS.GR – Με σεβασμό στη μνήμη</p>
   </footer>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
-  <script src="js/firebase.js"></script>
+  <script type="module" src="js/lang.js"></script>
+  <script type="module" src="js/ui.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+    import { firebaseConfig } from "./js/firebase.js";
 
-  <!-- Libraries for sanitization and QR code -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-  <!-- App scripts -->
-  <script src="js/lang.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/auth.js" type="module"></script>
-  <script>
-    // Persist theme & year
-    const saved = localStorage.getItem('theme');
-    if (saved) document.documentElement.setAttribute('data-theme', saved);
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const relativeSection = document.getElementById("relative-dashboard");
+    const partnerSection = document.getElementById("partner-dashboard");
 
-    // Init dashboard and logout
-    initDashboard();
-    document.getElementById('logout-btn').addEventListener('click', logoutUser);
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const uid = user.uid;
+        const userRef = doc(db, "users", uid);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          if (userData.role === "partner") {
+            partnerSection.classList.remove("hidden");
+          } else {
+            relativeSection.classList.remove("hidden");
+          }
+        } else {
+          alert("Δεν βρέθηκαν στοιχεία χρήστη.");
+        }
+      } else {
+        window.location.href = "login.html";
+      }
+    });
   </script>
 </body>
 </html>
