@@ -1,91 +1,56 @@
-// js/admin.js
-// Admin panel logic: approve/reject memorials and offices
-import { db } from "./firebase.js";
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  updateDoc,
-  doc
-} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
-import { displayAlert } from "./ui.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { getFirestore, collection, getDocs, updateDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { firebaseConfig } from "./firebase.js";
 
-/**
- * Initialize admin panel
- */
-export async function initAdminPanel() {
-  try {
-    // Fetch pending memorials
-    const memRef = collection(db, 'memorials');
-    const q1 = query(memRef, where('status', '==', 'pending'));
-    const memSnap = await getDocs(q1);
-    const memList = document.getElementById('pending-memorials');
-    memSnap.forEach(docSnap => {
-      const data = docSnap.data();
-      const div = document.createElement('div');
-      div.className = 'pending-item';
-      div.innerHTML = `
-        <p>${data.firstName} ${data.lastName} (${data.birth} – ${data.death})</p>
-        <button class="btn" onclick="approveMemorial('${docSnap.id}')">Approve</button>
-        <button class="btn" onclick="rejectMemorial('${docSnap.id}')">Reject</button>
-      `;
-      memList.appendChild(div);
-    });
-    // Fetch pending funeral offices
-    const offRef = collection(db, 'users');
-    const q2 = query(offRef, where('role', '==', 'funeral_home'), where('approved', '==', false));
-    const offSnap = await getDocs(q2);
-    const offList = document.getElementById('pending-offices');
-    offSnap.forEach(docSnap => {
-      const data = docSnap.data();
-      const div = document.createElement('div');
-      div.className = 'pending-item';
-      div.innerHTML = `
-        <p>${data.email}</p>
-        <button class="btn" onclick="approveOffice('${docSnap.id}')">Approve</button>
-        <button class="btn" onclick="rejectOffice('${docSnap.id}')">Reject</button>
-      `;
-      offList.appendChild(div);
-    });
-  } catch (err) {
-    console.error(err);
-    displayAlert('Error loading admin data', 'error');
-  }
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const pendingMemorials = document.getElementById("pendingMemorials");
+const pendingPartners = document.getElementById("pendingPartners");
+
+async function loadMemorials() {
+  const q = query(collection(db, "memorials"), where("approved", "==", false));
+  const snapshot = await getDocs(q);
+  snapshot.forEach(docSnap => {
+    const data = docSnap.data();
+    const item = document.createElement("div");
+    item.innerHTML = `
+      <p><strong>${data.firstName} ${data.lastName}</strong></p>
+      <button onclick="approveMemorial('${docSnap.id}')">✅ Έγκριση</button>
+    `;
+    pendingMemorials.appendChild(item);
+  });
 }
 
-/**
- * Approve a memorial
- */
-export async function approveMemorial(id) {
-  await updateDoc(doc(db, 'memorials', id), { status: 'approved' });
-  displayAlert('Memorial approved', 'success');
+async function loadPartners() {
+  const q = query(collection(db, "users"), where("role", "==", "partner"), where("approved", "==", false));
+  const snapshot = await getDocs(q);
+  snapshot.forEach(docSnap => {
+    const data = docSnap.data();
+    const item = document.createElement("div");
+    item.innerHTML = `
+      <p><strong>${data.name} ${data.surname}</strong> (${data.email})</p>
+      <button onclick="approvePartner('${docSnap.id}')">✅ Έγκριση</button>
+    `;
+    pendingPartners.appendChild(item);
+  });
+}
+
+window.approveMemorial = async (id) => {
+  await updateDoc(doc(db, "memorials", id), {
+    approved: true
+  });
+  alert("Memorial εγκρίθηκε.");
   location.reload();
-}
+};
 
-/**
- * Reject a memorial
- */
-export async function rejectMemorial(id) {
-  await updateDoc(doc(db, 'memorials', id), { status: 'rejected' });
-  displayAlert('Memorial rejected', 'info');
+window.approvePartner = async (id) => {
+  await updateDoc(doc(db, "users", id), {
+    approved: true
+  });
+  alert("Ο συνεργάτης εγκρίθηκε.");
   location.reload();
-}
+};
 
-/**
- * Approve a funeral office
- */
-export async function approveOffice(id) {
-  await updateDoc(doc(db, 'users', id), { approved: true });
-  displayAlert('Office approved', 'success');
-  location.reload();
-}
-
-/**
- * Reject a funeral office
- */
-export async function rejectOffice(id) {
-  await updateDoc(doc(db, 'users', id), { approved: false });
-  displayAlert('Office rejected', 'info');
-  location.reload();
-}
+loadMemorials();
+loadPartners();
