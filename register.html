@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-lang-key="register_title">Εγγραφή Χρήστη</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    .role-select {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 3rem 0 2rem;
+    }
+
+    .role-btn {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: 2px solid #0055a5;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .role-btn:hover,
+    .role-btn.active {
+      background: #0055a5;
+      color: white;
+    }
+
+    .form-section {
+      display: none;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .social-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .social-buttons button {
+      padding: 0.7rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .google-btn { background-color: #db4437; color: #fff; }
+    .facebook-btn { background-color: #3b5998; color: #fff; }
+    .microsoft-btn { background-color: #2f2f2f; color: #fff; }
+
+    .g-recaptcha {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      transform: scale(0.95);
+      transform-origin: 0 0;
+    }
+
+    [data-theme='dark'] .role-btn {
+      background: #2a2a2a;
+      border-color: #999;
+      color: #eee;
+    }
+    [data-theme='dark'] .role-btn.active {
+      background: #457b9d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong data-lang-key="site_title">MNIMIS.GR</strong></div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <div id="lang-switcher">
+        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
+        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
+        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
+        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
+        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
+      </div>
+      <button id="dark-mode-toggle" title="Dark mode">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 data-lang-key="register_title" style="text-align:center;">Εγγραφή Χρήστη</h1>
+
+    <div class="role-select">
+      <button class="role-btn" id="btn-relative" data-role="relative">Είμαι Συγγενής</button>
+      <button class="role-btn" id="btn-partner" data-role="partner">Είμαι Συνεργάτης</button>
+    </div>
+
+    <div class="form-section" id="relative-form">
+      <form id="registerRelativeForm">
+        <label for="firstName" data-lang-key="first_name">Όνομα</label>
+        <input type="text" id="firstName" required />
+
+        <label for="lastName" data-lang-key="last_name">Επώνυμο</label>
+        <input type="text" id="lastName" required />
+
+        <label for="email" data-lang-key="email">Email</label>
+        <input type="email" id="email" required />
+
+        <label for="password" data-lang-key="password">Κωδικός</label>
+        <input type="password" id="password" required />
+
+        <label for="confirmPassword" data-lang-key="confirm_password">Επιβεβαίωση Κωδικού</label>
+        <input type="password" id="confirmPassword" required />
+
+        <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+
+        <button type="submit" class="btn-main" data-lang-key="register_now">Εγγραφή</button>
+      </form>
+
+      <div class="divider">ή</div>
+
+      <div class="social-buttons">
+        <button class="google-btn">Εγγραφή με Google</button>
+        <button class="microsoft-btn">Εγγραφή με Microsoft</button>
+        <button class="facebook-btn">Εγγραφή με Facebook</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 MNIMIS.GR – Με σεβασμό στη μνήμη</p>
+  </footer>
+
+  <script type="module" src="js/lang.js"></script>
+  <script type="module" src="js/ui.js"></script>
+  <script>
+    document.getElementById("btn-relative").addEventListener("click", () => {
+      document.getElementById("relative-form").style.display = "block";
+      document.getElementById("btn-relative").classList.add("active");
+      document.getElementById("btn-partner").classList.remove("active");
+    });
+
+    document.getElementById("btn-partner").addEventListener("click", () => {
+      window.location.href = "partner_register_info.html";
+    });
+  </script>
+</body>
+</html>
