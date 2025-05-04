@@ -1,87 +1,56 @@
-
 <!DOCTYPE html>
 <html lang="el">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-lang-key="site_title">MNIMIS.GR</title>
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-    }
-    .flag {
-      width: 24px;
-      cursor: pointer;
-    }
-    .btn-login {
-      padding: 0.5rem 1rem;
-      background: #0055a5;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 6px;
-    }
-    .search-box {
-      margin-top: 2rem;
-      text-align: center;
-    }
-    .search-box input {
-      padding: 0.5rem;
-      width: 250px;
-      max-width: 90%;
-    }
-    .search-box button {
-      padding: 0.5rem 1rem;
-      margin-left: 0.5rem;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header class="top-bar">
     <h1 data-lang-key="site_title">MNIMIS.GR</h1>
     <div style="display: flex; align-items: center; gap: 1rem;">
-      <div id="lang-switcher" style="display: flex; gap: 0.25rem;">
-        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR">
-        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN">
-        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG">
-        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU">
-        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL">
+      <div id="lang-switcher" style="display: flex; gap: 0.3rem;">
+        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
+        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
+        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
+        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
+        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
       </div>
       <a href="login.html" class="btn-login" data-lang-key="login_button">Είσοδος</a>
       <button id="dark-mode-toggle" title="Dark mode">🌙</button>
     </div>
   </header>
 
-  <main style="max-width: 600px; margin: 3rem auto; text-align: center; padding: 0 1rem;">
-    <h2 data-lang-key="home_title">Ψηφιακές Σελίδες Μνήμης</h2>
-    <p data-lang-key="home_description">
-      Δημιουργούμε χώρο για τη μνήμη των αγαπημένων σας.
-      Με τη χρήση τεχνολογιών QR/NFC, προσφέρουμε μοναδικές ψηφιακές σελίδες μνήμης που περιλαμβάνουν φωτογραφίες, βίντεο, σχόλια και μουσική.
-    </p>
-    <a href="register.html" class="btn" style="display: inline-block; margin-top: 2rem; padding: 0.75rem 2rem; background-color: #0055a5; color: #fff; border-radius: 6px; text-decoration: none;" data-lang-key="get_started">Ξεκίνα</a>
+  <main class="container" style="text-align: center;">
+  <h2 data-lang-key="home_title">Ψηφιακές Σελίδες Μνήμης</h2>
+  <p data-lang-key="home_description">
+    Δημιουργούμε έναν χώρο όπου η μνήμη δεν σβήνει. Φωτογραφίες, μουσικές, βίντεο και λέξεις καρδιάς ενώνονται σε έναν μοναδικό σύνδεσμο, για πάντα.
+    Με τεχνολογία QR/NFC, προσφέρουμε σε οικογένειες και γραφεία τελετών έναν αξιοπρεπή τρόπο να θυμούνται.
+  </p>
+  <a href="register.html" class="btn-main" data-lang-key="get_started">Δημιουργία Memorial</a>
+  <blockquote style="margin-top: 2rem; font-style: italic;" data-lang-key="home_quote">
+    «Η μνήμη είναι η μόνη γη όπου μπορούμε να ξανασυναντηθούμε.»
+  </blockquote>
 
-    <div class="search-box">
-      <h3 data-lang-key="search_memorial">Αναζήτηση Memorial</h3>
-      <input type="text" id="searchId" placeholder="Εισάγετε UUID memorial">
-      <button onclick="searchMemorial()" data-lang-key="search">Αναζήτηση</button>
-    </div>
-  </main>
+  <div class="search-box">
+    <h3 data-lang-key="search_memorial">Αναζήτηση Memorial</h3>
+    <input type="text" id="searchId" placeholder="UUID memorial" />
+    <button onclick="searchMemorial()" data-lang-key="search">Αναζήτηση</button>
+  </div>
+</main>
 
-  <footer style="text-align: center; padding: 2rem 1rem; font-size: 0.9rem; color: #777;">
-    <p>&copy; 2025 MNIMIS.GR</p>
+
+  <footer>
+    <p>&copy; 2025 MNIMIS.GR – Με σεβασμό στη μνήμη</p>
   </footer>
 
   <script type="module" src="js/lang.js"></script>
   <script type="module" src="js/ui.js"></script>
   <script>
     function searchMemorial() {
-      const id = document.getElementById('searchId').value.trim();
-      if (id) {
-        window.location.href = `memorial.html?id=${id}`;
-      }
+      const id = document.getElementById("searchId").value.trim();
+      if (id) window.location.href = `memorial.html?id=${id}`;
     }
   </script>
 </body>
