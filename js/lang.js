@@ -113,3 +113,33 @@ document.querySelectorAll('.flag').forEach(flag => {
     applyTranslations();
   });
 });
+el: {
+  // ... existing entries ...
+  partner_code_label: "Εισάγετε τον Κωδικό Συνεργάτη",
+  check_code: "Έλεγχος Κωδικού",
+  partner_code_invalid: "Ο κωδικός δεν είναι έγκυρος.\nΠαρακαλούμε επικοινωνήστε μαζί μας στο 📞 6946772226\nΏρες επικοινωνίας: Δευτέρα - Παρασκευή, 10:00 - 14:00\nή στο 📧 aliverious@gmail.com"
+},
+en: {
+  // ... existing entries ...
+  partner_code_label: "Enter Partner Code",
+  check_code: "Verify Code",
+  partner_code_invalid: "The code is not valid.\nPlease contact us at 📞 6946772226\nAvailable: Monday to Friday, 10:00 - 14:00\nor via 📧 aliverious@gmail.com"
+},
+bg: {
+  // ... existing entries ...
+  partner_code_label: "Въведете Партньорски Код",
+  check_code: "Проверка на Кода",
+  partner_code_invalid: "Кодът не е валиден.\nМоля, свържете се с нас на 📞 6946772226\nЧасове за контакт: Пон - Петък, 10:00 - 14:00\nили на 📧 aliverious@gmail.com"
+},
+ru: {
+  // ... existing entries ...
+  partner_code_label: "Введите Код Партнёра",
+  check_code: "Проверить Код",
+  partner_code_invalid: "Код недействителен.\nПожалуйста, свяжитесь с нами по телефону 📞 6946772226\nКонтактные часы: Пн - Пт, 10:00 - 14:00\nили на 📧 aliverious@gmail.com"
+},
+al: {
+  // ... existing entries ...
+  partner_code_label: "Shkruani Kodin e Partnerit",
+  check_code: "Verifiko Kodin",
+  partner_code_invalid: "Kodi nuk është i vlefshëm.\nJu lutemi na kontaktoni në 📞 6946772226\nOrari: E Hënë - E Premte, 10:00 - 14:00\nosé në 📧 aliverious@gmail.com"
+}
