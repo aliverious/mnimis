@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="edit_memorial_title">Επεξεργασία Memorial</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <a href="index.html" class="logo">MNIMIS.GR</a>
+      <div class="language-switcher">
+        <img src="flags/gr.png" onclick="setLanguage('gr')" alt="GR" />
+        <img src="flags/en.png" onclick="setLanguage('en')" alt="EN" />
+        <img src="flags/al.png" onclick="setLanguage('al')" alt="AL" />
+        <img src="flags/bg.png" onclick="setLanguage('bg')" alt="BG" />
+        <img src="flags/ru.png" onclick="setLanguage('ru')" alt="RU" />
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h1 data-i18n="edit_memorial">Επεξεργασία Memorial</h1>
+    <form onsubmit="updateMemorial(event)">
+      <label for="fullname" data-i18n="fullname">Ονοματεπώνυμο:</label>
+      <input type="text" id="fullname" required />
+
+      <label for="birthplace" data-i18n="birthplace">Τόπος Γέννησης:</label>
+      <input type="text" id="birthplace" />
+
+      <label for="date_start" data-i18n="date_start">Ημ/νία Γέννησης:</label>
+      <input type="date" id="date_start" />
+
+      <label for="date_end" data-i18n="date_end">Ημ/νία Θανάτου:</label>
+      <input type="date" id="date_end" />
+
+      <label for="video_url" data-i18n="video_url">Σύνδεσμος Βίντεο (π.χ. YouTube):</label>
+      <input type="url" id="video_url" />
+
+      <label for="photo" data-i18n="photo">Φωτογραφία:</label>
+      <input type="file" id="photo" accept="image/*" />
+
+      <label for="audio" data-i18n="audio">Μουσική (MP3):</label>
+      <input type="file" id="audio" accept="audio/mpeg" />
+
+      <label for="mapLat" data-i18n="latitude">Γεωγραφικό Πλάτος:</label>
+      <input type="number" id="mapLat" step="any" />
+
+      <label for="mapLng" data-i18n="longitude">Γεωγραφικό Μήκος:</label>
+      <input type="number" id="mapLng" step="any" />
+
+      <button type="submit" data-i18n="save_changes">Αποθήκευση Αλλαγών</button>
+    </form>
+
+    <!-- Το κουμπί διαγραφής δημιουργείται δυναμικά από edit_memorial.js για admin -->
+  </main>
+
+  <script src="js/firebase.js" type="module"></script>
+  <script src="js/lang.js"></script>
+  <script src="js/edit_memorial.js" type="module"></script>
+</body>
+</html>

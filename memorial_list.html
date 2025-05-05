@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Λίστα Memorials</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <a href="index.html" class="logo">MNIMIS.GR</a>
+      <div class="language-switcher">
+        <img src="flags/gr.png" onclick="setLanguage('gr')" alt="GR" />
+        <img src="flags/en.png" onclick="setLanguage('en')" alt="EN" />
+        <img src="flags/al.png" onclick="setLanguage('al')" alt="AL" />
+        <img src="flags/bg.png" onclick="setLanguage('bg')" alt="BG" />
+        <img src="flags/ru.png" onclick="setLanguage('ru')" alt="RU" />
+      </div>
+    </div>
+  </header>
+
+  <main>
+  <h1 data-i18n="memorial_list">Λίστα Memorials</h1>
+
+<!-- 🔽 Dropdown Ταξινόμησης -->
+<label for="sort-select" style="font-weight: bold; display: block; margin-bottom: 0.5rem;">Ταξινόμηση:</label>
+<select id="sort-select" style="margin-bottom: 1rem; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;">
+  <option value="newest">📅 Νεότερα</option>
+  <option value="oldest">📅 Παλαιότερα</option>
+  <option value="az">🔤 A–Z</option>
+  <option value="za">🔤 Z–A</option>
+</select>
+
+<!-- 🔍 Φίλτρο Αναζήτησης -->
+<input type="text" id="filter-input" placeholder="Αναζήτηση με όνομα ή ημερομηνία..." style="width: 100%; margin-bottom: 1rem; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;" />
+
+<!-- 🗓 Επιλογή Εύρους Ημερομηνιών -->
+<label for="start-date" style="font-weight: bold; display: block; margin-bottom: 0.5rem;">Από Ημερομηνία:</label>
+<input type="date" id="start-date" style="margin-bottom: 1rem; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;" />
+
+<label for="end-date" style="font-weight: bold; display: block; margin-bottom: 0.5rem;">Έως Ημερομηνία:</label>
+<input type="date" id="end-date" style="margin-bottom: 1rem; padding: 0.5rem; border-radius: 8px; border: 1px solid #ccc;" />
+
+<!-- 📋 Εμφάνιση Memorials -->
+<div id="memorials-container">
+  <p data-i18n="loading">Φόρτωση...</p>
+</div>
+
+  </main>
+
+  <script src="js/lang.js"></script>
+  <script src="js/firebase.js" type="module"></script>
+  <script src="js/memorial_list.js" type="module"></script>
+</body>
+</html>

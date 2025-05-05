@@ -1,0 +1,46 @@
+<!-- create_memorial.html -->
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="create_memorial_title">Δημιουργία Memorial</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <a href="index.html" class="logo">MNIMIS.GR</a>
+      <div class="language-switcher">
+        <img src="flags/gr.png" onclick="setLanguage('gr')" alt="GR" />
+        <img src="flags/en.png" onclick="setLanguage('en')" alt="EN" />
+        <img src="flags/al.png" onclick="setLanguage('al')" alt="AL" />
+        <img src="flags/bg.png" onclick="setLanguage('bg')" alt="BG" />
+        <img src="flags/ru.png" onclick="setLanguage('ru')" alt="RU" />
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h1 data-i18n="create_memorial">Δημιουργία Memorial</h1>
+    <form onsubmit="createMemorial(event)" enctype="multipart/form-data">
+      <input type="text" id="fullname" placeholder="Ονοματεπώνυμο" required />
+      <input type="text" id="birthplace" placeholder="Τόπος Γέννησης" required />
+      <input type="date" id="date_start" placeholder="Ημ/νία Γέννησης" required />
+      <input type="date" id="date_end" placeholder="Ημ/νία Θανάτου" required />
+      <input type="url" id="video_url" placeholder="Σύνδεσμος Βίντεο (προαιρετικά)" />
+      <input type="number" id="mapLat" placeholder="Γεωγραφικό Πλάτος (Lat)" />
+      <input type="number" id="mapLng" placeholder="Γεωγραφικό Μήκος (Lng)" />
+      <label>Φωτογραφία:</label>
+      <input type="file" id="photo" accept="image/*" required />
+      <label>Ήχος (προαιρετικά):</label>
+      <input type="file" id="audio" accept="audio/*" />
+      <button type="submit" data-i18n="save">Αποθήκευση</button>
+    </form>
+  </main>
+
+  <script src="js/firebase.js" type="module"></script>
+  <script src="js/create_memorial.js" type="module"></script>
+  <script src="js/lang.js"></script>
+</body>
+</html>

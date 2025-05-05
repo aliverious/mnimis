@@ -3,54 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang-key="memorial_page">Σελίδα Μνήμης</title>
+  <title data-i18n="memorial_title">Σελίδα Μνήμης</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="top-bar">
-    <h1 data-lang-key="site_title">MNIMIS.GR</h1>
-    <div style="display: flex; align-items: center; gap: 1rem;">
-      <div id="lang-switcher" style="display: flex; gap: 0.3rem;">
-        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
-        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
-        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
-        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
-        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
+  <header>
+    <div class="top-bar">
+      <a href="index.html" class="logo">MNIMIS.GR</a>
+      <div class="language-switcher">
+        <img src="flags/gr.png" onclick="setLanguage('gr')" alt="GR" />
+        <img src="flags/en.png" onclick="setLanguage('en')" alt="EN" />
+        <img src="flags/al.png" onclick="setLanguage('al')" alt="AL" />
+        <img src="flags/bg.png" onclick="setLanguage('bg')" alt="BG" />
+        <img src="flags/ru.png" onclick="setLanguage('ru')" alt="RU" />
       </div>
-      <button id="dark-mode-toggle" title="Dark mode">🌙</button>
     </div>
   </header>
 
-  <main class="container memorial">
-    <div id="memorialContent">
-      <img id="photo" src="" alt="Φωτογραφία" style="max-width: 200px; border-radius: 8px;" />
-      <h2 id="fullName">...</h2>
-      <p id="birthPlace">...</p>
-      <p id="lifespan">...</p>
+  <main id="memorial-content">
+    <img id="photo" src="" alt="Memorial Photo" />
+    <h1 id="fullname"></h1>
+    <p id="birthplace"></p>
+    <p id="dates"></p>
+    <a id="video-link" href="#" target="_blank" data-i18n="watch_video">Δείτε το βίντεο</a>
 
-      <div id="videoSection" style="margin: 2rem 0;"></div>
-      <div id="musicSection" style="margin-bottom: 2rem;"></div>
-      <div id="map" style="width: 100%; height: 250px; margin-bottom: 2rem;"></div>
-
-      <button class="btn" onclick="reportMemorial()" data-lang-key="report_memorial">Αναφορά Memorial</button>
-
-      <section style="margin-top: 3rem;">
-        <h3 data-lang-key="comments">Σχόλια/Ευχές</h3>
-        <form onsubmit="submitComment(event)">
-          <textarea id="commentText" required placeholder="Γράψτε κάτι..."></textarea>
-          <button type="submit" class="btn" data-lang-key="submit_comment">Υποβολή</button>
-        </form>
-        <div id="commentList" style="margin-top: 1rem;"></div>
-      </section>
+    <div id="music-player" style="display: none;">
+      <audio controls id="audio"></audio>
     </div>
+
+    <div id="comments-section">
+      <h3 data-i18n="comments">Σχόλια / Ευχές</h3>
+      <ul id="comments-list"></ul>
+      <textarea id="comment-input" placeholder="Γράψτε μια ευχή..." data-i18n="comment_placeholder"></textarea>
+      <button onclick="submitComment()" data-i18n="submit_comment">Υποβολή</button>
+    </div>
+
+    <div id="extras">
+      <button onclick="downloadPDF()" data-i18n="download_pdf">Κατέβασμα Memorial (PDF)</button>
+      <button onclick="generateQRCode()" data-i18n="generate_qr">QR Code</button>
+      <button onclick="reportMemorial()" data-i18n="report">Αναφορά Memorial</button>
+      <button onclick="showLogs()" data-i18n="view_logs">📜Προβολή Αλλαγών</button>
+    </div>
+
+
+    <div id="logs-section" style="display: none; margin-top: 2rem;">
+      <h3 data-i18n="log_history">Ιστορικό Αλλαγών</h3>
+      <ul id="logs-list"></ul>
+    </div>
+
+    <div id="map" style="height: 300px;"></div>
   </main>
 
-  <footer>
-    <p>&copy; 2025 MNIMIS.GR</p>
-  </footer>
-
-  <script type="module" src="js/lang.js"></script>
-  <script type="module" src="js/ui.js"></script>
-  <script type="module" src="js/memorial.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+  <script src="js/firebase.js" type="module"></script>
+  <script src="js/memorial.js" type="module"></script>
+  <script src="js/lang.js"></script>
 </body>
 </html>

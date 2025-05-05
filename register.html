@@ -3,50 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang-key="register_title">Εγγραφή</title>
+  <title data-i18n="register_title">Εγγραφή Χρήστη</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="top-bar">
-    <h1 data-lang-key="site_title">MNIMIS.GR</h1>
-    <div style="display: flex; align-items: center; gap: 1rem;">
-      <div id="lang-switcher" style="display: flex; gap: 0.3rem;">
-        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
-        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
-        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
-        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
-        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
+  <header>
+    <div class="top-bar">
+      <a href="index.html" class="logo">MNIMIS.GR</a>
+      <div class="language-switcher">
+        <img src="flags/gr.png" onclick="setLanguage('gr')" alt="GR" />
+        <img src="flags/en.png" onclick="setLanguage('en')" alt="EN" />
+        <img src="flags/al.png" onclick="setLanguage('al')" alt="AL" />
+        <img src="flags/bg.png" onclick="setLanguage('bg')" alt="BG" />
+        <img src="flags/ru.png" onclick="setLanguage('ru')" alt="RU" />
       </div>
-      <button id="dark-mode-toggle" title="Dark mode">🌙</button>
     </div>
   </header>
 
-  <main class="container">
-    <h2 data-lang-key="register_title">Εγγραφή</h2>
+  <main>
+    <h1 data-i18n="register">Εγγραφή Χρήστη</h1>
+    <form onsubmit="registerUser(event)">
+      <label for="email" data-i18n="email">Email:</label>
+      <input type="email" id="email" required />
 
-    <div style="text-align: center; margin-bottom: 2rem;">
-      <h3 data-lang-key="select_role">Επιλέξτε Ρόλο</h3>
-      <button type="button" id="btn-relative" class="btn" data-lang-key="role_relative">Συγγενής</button>
-      <button type="button" id="btn-partner" class="btn" data-lang-key="role_partner">Συνεργάτης</button>
-    </div>
+      <label for="password" data-i18n="password">Κωδικός:</label>
+      <input type="password" id="password" required minlength="6" />
 
-    <form id="registerForm" style="display: none;">
-      <input type="text" id="name" placeholder="Όνομα" data-lang-key="name" required />
-      <input type="text" id="surname" placeholder="Επώνυμο" data-lang-key="surname" required />
-      <input type="email" id="email" placeholder="Email" data-lang-key="email" required />
-      <input type="password" id="password" placeholder="Κωδικός" data-lang-key="password" required />
-      <input type="password" id="confirmPassword" placeholder="Επιβεβαίωση Κωδικού" data-lang-key="confirm_password" required />
-
-      <button type="submit" class="btn-main" data-lang-key="register_submit">Εγγραφή</button>
+      <button type="submit" data-i18n="register_btn">Εγγραφή</button>
     </form>
+
+    <hr />
+
+    <button onclick="signInWithGoogle()" data-i18n="register_google">Εγγραφή με Google</button>
+    <p><a href="login.html" data-i18n="have_account">Έχετε ήδη λογαριασμό; Συνδεθείτε.</a></p>
   </main>
 
-  <footer>
-    <p>&copy; 2025 MNIMIS.GR</p>
-  </footer>
-
-  <script type="module" src="js/lang.js"></script>
-  <script type="module" src="js/ui.js"></script>
-  <script type="module" src="js/auth.js"></script>
+  <script src="js/firebase.js" type="module"></script>
+  <script src="js/auth.js" type="module"></script>
+  <script src="js/lang.js"></script>
 </body>
 </html>

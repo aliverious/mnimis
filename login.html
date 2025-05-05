@@ -2,76 +2,44 @@
 <html lang="el">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-lang-key="login_button">Είσοδος</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="login_title">Σύνδεση Χρήστη</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="top-bar">
-    <h1 data-lang-key="site_title">MNIMIS.GR</h1>
-    <div style="display: flex; align-items: center; gap: 1rem;">
-      <div id="lang-switcher" style="display: flex; gap: 0.3rem;">
-        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
-        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
-        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
-        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
-        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
+  <header>
+    <div class="top-bar">
+      <a href="index.html" class="logo">MNIMIS.GR</a>
+      <div class="language-switcher">
+        <img src="flags/gr.png" onclick="setLanguage('gr')" alt="GR" />
+        <img src="flags/en.png" onclick="setLanguage('en')" alt="EN" />
+        <img src="flags/al.png" onclick="setLanguage('al')" alt="AL" />
+        <img src="flags/bg.png" onclick="setLanguage('bg')" alt="BG" />
+        <img src="flags/ru.png" onclick="setLanguage('ru')" alt="RU" />
       </div>
-      <button id="dark-mode-toggle" title="Dark mode">🌙</button>
     </div>
   </header>
 
-  <main class="container" style="max-width: 400px;">
-    <h2 data-lang-key="login_button">Είσοδος</h2>
-
-    <form onsubmit="login(event)">
-      <label data-lang-key="email">Email</label>
+  <main>
+    <h1 data-i18n="login">Σύνδεση Χρήστη</h1>
+    <form onsubmit="loginUser(event)">
+      <label for="email" data-i18n="email">Email:</label>
       <input type="email" id="email" required />
 
-      <label data-lang-key="password">Κωδικός</label>
-      <input type="password" id="password" required />
+      <label for="password" data-i18n="password">Κωδικός:</label>
+      <input type="password" id="password" required minlength="6" />
 
-      <div id="loginError" style="color: red; margin-top: 1rem;"></div>
-
-      <div style="margin: 1rem 0;">
-        <button type="submit" class="btn-main" data-lang-key="login_button">Είσοδος</button>
-      </div>
-
-      <p style="text-align: center;">ή</p>
-
-      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-        <button type="button" class="btn" onclick="socialLogin('google')">🔵 Google</button>
-        <button type="button" class="btn" onclick="socialLogin('facebook')">🔷 Facebook</button>
-        <button type="button" class="btn" onclick="socialLogin('microsoft')">🟣 Microsoft</button>
-      </div>
+      <button type="submit" data-i18n="login_btn">Σύνδεση</button>
     </form>
+
+    <hr />
+
+    <button onclick="signInWithGoogle()" data-i18n="login_google">Σύνδεση με Google</button>
+    <p><a href="register.html" data-i18n="no_account">Δεν έχετε λογαριασμό; Εγγραφείτε.</a></p>
   </main>
 
-  <footer>
-    <p>&copy; 2025 MNIMIS.GR</p>
-  </footer>
-
-  <script type="module" src="js/lang.js"></script>
-  <script type="module" src="js/ui.js"></script>
-  <script type="module" src="js/auth.js"></script>
-  <script>
-    function socialLogin(provider) {
-      alert("Social login μέσω " + provider + " – σύνδεση υπό ανάπτυξη.");
-    }
-
-    function login(event) {
-      event.preventDefault();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      const errorEl = document.getElementById("loginError");
-
-      import("./js/auth.js").then(module => {
-        module.loginWithEmail(email, password).catch(error => {
-          console.error(error);
-          errorEl.textContent = "Σφάλμα σύνδεσης. Ελέγξτε τα στοιχεία σας.";
-        });
-      });
-    }
-  </script>
+  <script src="js/firebase.js" type="module"></script>
+  <script src="js/auth.js" type="module"></script>
+  <script src="js/lang.js"></script>
 </body>
 </html>

@@ -3,44 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title data-lang-key="admin_panel">Πίνακας Διαχείρισης</title>
+  <title data-i18n="admin_title">Πίνακας Συνεργάτη / Διαχειριστή</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="top-bar">
-    <h1 data-lang-key="site_title">MNIMIS.GR</h1>
-    <div style="display: flex; align-items: center; gap: 1rem;">
-      <div id="lang-switcher" style="display: flex; gap: 0.3rem;">
-        <img src="assets/flags/gr.png" class="flag" data-lang="el" alt="GR" />
-        <img src="assets/flags/en.png" class="flag" data-lang="en" alt="EN" />
-        <img src="assets/flags/bg.png" class="flag" data-lang="bg" alt="BG" />
-        <img src="assets/flags/ru.png" class="flag" data-lang="ru" alt="RU" />
-        <img src="assets/flags/al.png" class="flag" data-lang="al" alt="AL" />
+  <header>
+    <div class="top-bar">
+      <a href="index.html" class="logo">MNIMIS.GR</a>
+      <div class="language-switcher">
+        <img src="flags/gr.png" onclick="setLanguage('gr')" alt="GR" />
+        <img src="flags/en.png" onclick="setLanguage('en')" alt="EN" />
+        <img src="flags/al.png" onclick="setLanguage('al')" alt="AL" />
+        <img src="flags/bg.png" onclick="setLanguage('bg')" alt="BG" />
+        <img src="flags/ru.png" onclick="setLanguage('ru')" alt="RU" />
       </div>
-      <button id="dark-mode-toggle" title="Dark mode">🌙</button>
     </div>
   </header>
 
-  <main class="container">
-    <h2 data-lang-key="admin_panel">Πίνακας Διαχείρισης</h2>
-
-    <section>
-      <h3 data-lang-key="pending_memorials">Memorials προς Έγκριση</h3>
-      <div id="pendingMemorials"></div>
-    </section>
-
-    <section style="margin-top: 2rem;">
-      <h3 data-lang-key="pending_partners">Αιτήματα Συνεργατών</h3>
-      <div id="pendingPartners"></div>
-    </section>
+  <main>
+    <h1 data-i18n="admin_dashboard">Διαχείριση Memorials</h1>
+    <div id="admin-list">
+      <p data-i18n="loading">Φόρτωση...</p>
+    </div>
   </main>
 
-  <footer>
-    <p>&copy; 2025 MNIMIS.GR</p>
-  </footer>
-
-  <script type="module" src="js/lang.js"></script>
-  <script type="module" src="js/ui.js"></script>
-  <script type="module" src="js/admin.js"></script>
+  <script src="js/firebase.js" type="module"></script>
+  <script src="js/lang.js"></script>
+  <script src="js/admin.js" type="module"></script>
 </body>
 </html>
