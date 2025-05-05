@@ -1,24 +1,28 @@
-// ui.js
+// js/ui.js
+
+// Dark mode toggle
+const toggle = document.getElementById("dark-mode-toggle");
+const currentTheme = localStorage.getItem("theme") || "light";
+if (currentTheme === "dark") document.body.classList.add("dark");
+
+toggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  const theme = document.body.classList.contains("dark") ? "dark" : "light";
+  localStorage.setItem("theme", theme);
+});
+
+// Language switching
+const flags = document.querySelectorAll(".flag");
+flags.forEach(flag => {
+  flag.addEventListener("click", () => {
+    const selectedLang = flag.dataset.lang;
+    localStorage.setItem("lang", selectedLang);
+    applyTranslations(selectedLang);
+  });
+});
+
+// Load language on page load
 document.addEventListener("DOMContentLoaded", () => {
-  const html = document.documentElement;
-  const darkToggle = document.getElementById("dark-mode-toggle");
-
-  // Έλεγχος για αποθηκευμένη προτίμηση
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
-    html.setAttribute("data-theme", "dark");
-  }
-
-  if (darkToggle) {
-    darkToggle.addEventListener("click", () => {
-      const isDark = html.getAttribute("data-theme") === "dark";
-      if (isDark) {
-        html.removeAttribute("data-theme");
-        localStorage.setItem("theme", "light");
-      } else {
-        html.setAttribute("data-theme", "dark");
-        localStorage.setItem("theme", "dark");
-      }
-    });
-  }
+  const savedLang = localStorage.getItem("lang") || "el";
+  applyTranslations(savedLang);
 });

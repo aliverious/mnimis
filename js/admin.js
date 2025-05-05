@@ -1,56 +1,58 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getFirestore, collection, getDocs, updateDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-import { firebaseConfig } from "./firebase.js";
+// js/admin.js
+// === Διαχείριση Memorials από Συνεργάτες/Admin ===
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { db, auth } from './firebase.js';
+import { collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-const pendingMemorials = document.getElementById("pendingMemorials");
-const pendingPartners = document.getElementById("pendingPartners");
+// Έλεγχος εξουσιοδότησης
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    alert("Απαιτείται σύνδεση.");
+    window.location.href = "login.html";
+    return;
+  }
 
+  const uid = user.uid;
+  const userRef = doc(db, "users", uid);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists() || (userSnap.data().role !== "admin" && userSnap.data().role !== "partner")) {
+    alert("Δεν έχετε δικαίωμα πρόσβασης.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  loadMemorials();
+});
+
+// Φόρτωση όλων των memorials
 async function loadMemorials() {
-  const q = query(collection(db, "memorials"), where("approved", "==", false));
-  const snapshot = await getDocs(q);
-  snapshot.forEach(docSnap => {
+  const memorialsCol = collection(db, "memorials");
+  const snapshot = await getDocs(memorialsCol);
+  const container = document.getElementById("admin-list");
+
+  container.innerHTML = "";
+  snapshot.forEach((docSnap) => {
     const data = docSnap.data();
-    const item = document.createElement("div");
-    item.innerHTML = `
-      <p><strong>${data.firstName} ${data.lastName}</strong></p>
-      <button onclick="approveMemorial('${docSnap.id}')">✅ Έγκριση</button>
+    const div = document.createElement("div");
+    div.className = "memorial-card";
+    div.innerHTML = `
+      <strong>${data.fullname}</strong><br>
+      ${data.date_start} – ${data.date_end}<br>
+      <button onclick="deleteMemorial('${docSnap.id}')">🗑 Διαγραφή</button>
+      <a href="memorial.html?id=${docSnap.id}" target="_blank">Προβολή</a>
     `;
-    pendingMemorials.appendChild(item);
+    container.appendChild(div);
   });
 }
 
-async function loadPartners() {
-  const q = query(collection(db, "users"), where("role", "==", "partner"), where("approved", "==", false));
-  const snapshot = await getDocs(q);
-  snapshot.forEach(docSnap => {
-    const data = docSnap.data();
-    const item = document.createElement("div");
-    item.innerHTML = `
-      <p><strong>${data.name} ${data.surname}</strong> (${data.email})</p>
-      <button onclick="approvePartner('${docSnap.id}')">✅ Έγκριση</button>
-    `;
-    pendingPartners.appendChild(item);
-  });
+// Διαγραφή memorial
+async function deleteMemorial(id) {
+  if (!confirm("Είστε σίγουροι;")) return;
+  await deleteDoc(doc(db, "memorials", id));
+  alert("Το memorial διαγράφηκε.");
+  loadMemorials();
 }
 
-window.approveMemorial = async (id) => {
-  await updateDoc(doc(db, "memorials", id), {
-    approved: true
-  });
-  alert("Memorial εγκρίθηκε.");
-  location.reload();
-};
-
-window.approvePartner = async (id) => {
-  await updateDoc(doc(db, "users", id), {
-    approved: true
-  });
-  alert("Ο συνεργάτης εγκρίθηκε.");
-  location.reload();
-};
-
-loadMemorials();
-loadPartners();
+window.deleteMemorial = deleteMemorial;

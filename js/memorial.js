@@ -1,88 +1,209 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getFirestore, doc, getDoc, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-import { firebaseConfig } from "./firebase.js";
+// js/memorial.js
+// === Load Memorial Data by UUID and Render ===
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { db, storage } from './firebase.js';
+import { doc, getDoc, collection, addDoc, getDocs, Timestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
-const params = new URLSearchParams(window.location.search);
-const memorialId = params.get("id");
+// Λήψη UUID από το URL
+const urlParams = new URLSearchParams(window.location.search);
+const uuid = urlParams.get('id');
 
-const photo = document.getElementById("photo");
-const fullName = document.getElementById("fullName");
-const birthPlace = document.getElementById("birthPlace");
-const lifespan = document.getElementById("lifespan");
-const videoSection = document.getElementById("videoSection");
-const musicSection = document.getElementById("musicSection");
-const map = document.getElementById("map");
-const commentList = document.getElementById("commentList");
+if (!uuid) {
+  alert("Δεν βρέθηκε memorial.");
+  window.location.href = "index.html";
+}
 
+// Φόρτωση memorial
 async function loadMemorial() {
-  if (!memorialId) return;
-
-  const docRef = doc(db, "memorials", memorialId);
+  const docRef = doc(db, "memorials", uuid);
   const docSnap = await getDoc(docRef);
 
   if (!docSnap.exists()) {
-    fullName.textContent = "Το memorial δεν βρέθηκε.";
+    alert("Το memorial δεν υπάρχει.");
+    window.location.href = "index.html";
     return;
   }
 
   const data = docSnap.data();
-  photo.src = data.photoURL || "";
-  fullName.textContent = `${data.firstName} ${data.lastName}`;
-  birthPlace.textContent = data.birthPlace || "";
-  lifespan.textContent = `${data.birthDate || "?"} – ${data.deathDate || "?"}`;
 
-  if (data.videoURL) {
-    videoSection.innerHTML = `<iframe width="100%" height="315" src="${data.videoURL}" frameborder="0" allowfullscreen></iframe>`;
+  document.getElementById("fullname").textContent = data.fullname || "";
+  document.getElementById("birthplace").textContent = data.birthplace || "";
+  document.getElementById("dates").textContent = `${data.date_start} - ${data.date_end}`;
+  document.getElementById("video-link").href = data.video_url || "#";
+
+  if (data.photo_path) {
+    const photoRef = ref(storage, data.photo_path);
+    const photoURL = await getDownloadURL(photoRef);
+    document.getElementById("photo").src = photoURL;
   }
 
-  if (data.musicURL) {
-    musicSection.innerHTML = `<audio controls style="width: 100%;"><source src="${data.musicURL}" type="audio/mpeg"></audio>`;
+  if (data.audio_path) {
+    const audioRef = ref(storage, data.audio_path);
+    const audioURL = await getDownloadURL(audioRef);
+    const player = document.getElementById("audio");
+    player.src = audioURL;
+    document.getElementById("music-player").style.display = "block";
   }
 
-  if (data.cemeteryLocation) {
-    const iframe = document.createElement("iframe");
-    iframe.src = `https://www.google.com/maps?q=${encodeURIComponent(data.cemeteryLocation)}&output=embed`;
-    iframe.width = "100%";
-    iframe.height = "250";
-    iframe.style.border = "0";
-    map.appendChild(iframe);
-  }
-
+  initMap(data.mapLat, data.mapLng);
   loadComments();
 }
 
 async function loadComments() {
-  const q = query(collection(db, "comments"), where("memorialId", "==", memorialId));
-  const snapshot = await getDocs(q);
+  const commentsCol = collection(db, `memorials/${uuid}/comments`);
+  const commentSnapshot = await getDocs(commentsCol);
+  const commentList = document.getElementById("comments-list");
   commentList.innerHTML = "";
-  snapshot.forEach(doc => {
-    const comment = doc.data();
-    const div = document.createElement("div");
-    div.textContent = comment.text;
-    commentList.appendChild(div);
+
+  commentSnapshot.forEach((doc) => {
+    const li = document.createElement("li");
+    li.textContent = doc.data().text;
+    commentList.appendChild(li);
   });
 }
 
-window.submitComment = async function(event) {
-  event.preventDefault();
-  const commentText = document.getElementById("commentText").value.trim();
-  if (!commentText) return;
+async function submitComment() {
+  const comment = document.getElementById("comment-input").value.trim();
+  if (!comment) return;
+  const commentsCol = collection(db, `memorials/${uuid}/comments`);
+  await addDoc(commentsCol, {
+    text: comment,
+    createdAt: Timestamp.now()
+  });
+  document.getElementById("comment-input").value = "";
+  loadComments();
+}
 
-  await addDoc(collection(db, "comments"), {
-    memorialId,
-    text: commentText,
-    createdAt: new Date().toISOString()
+function downloadPDF() {
+  alert("📄 Υποστήριξη PDF σε μελλοντική έκδοση.");
+}
+
+function generateQRCode() {
+  const link = window.location.href;
+  window.open(`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(link)}&size=200x200`, '_blank');
+}
+
+function reportMemorial() {
+  alert("🚨 Η αναφορά memorial καταχωρήθηκε.");
+}
+
+function initMap(lat, lng) {
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 14,
+    center: { lat: lat || 38.4, lng: lng || 23.9 }
   });
 
-  document.getElementById("commentText").value = "";
-  loadComments();
-};
-
-window.reportMemorial = () => {
-  alert("Η αναφορά καταχωρήθηκε. Θα ελεγχθεί σύντομα από τη διαχείριση.");
-};
+  new google.maps.Marker({
+    position: { lat: lat || 38.4, lng: lng || 23.9 },
+    map: map
+  });
+}
 
 loadMemorial();
+window.submitComment = submitComment;
+window.downloadPDF = downloadPDF;
+window.generateQRCode = generateQRCode;
+window.reportMemorial = reportMemorial;
+
+import { deleteObject, ref as storageRef } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
+import { deleteDoc, collection, getDocs, doc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+// === Διαγραφή memorial ===
+async function deleteMemorial() {
+  const confirmDelete = confirm("⚠️ Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό το memorial;");
+  if (!confirmDelete) return;
+
+  try {
+    const docSnap = await getDoc(doc(db, "memorials", uuid));
+    if (!docSnap.exists()) {
+      alert("Το memorial δεν βρέθηκε.");
+      return;
+    }
+
+    const data = docSnap.data();
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert("Πρέπει να είστε συνδεδεμένοι.");
+      return;
+    }
+
+    const userSnap = await getDoc(doc(db, "users", user.uid));
+    const role = userSnap.data().role;
+    const isOwner = data.createdBy === user.uid;
+    const isAdmin = role === "admin";
+
+    if (!isOwner && !isAdmin) {
+      alert("Δεν έχετε δικαίωμα διαγραφής.");
+      return;
+    }
+
+    // 🔥 Διαγραφή comments subcollection
+    const commentsCol = collection(db, `memorials/${uuid}/comments`);
+    const commentSnapshot = await getDocs(commentsCol);
+    for (const cmt of commentSnapshot.docs) {
+      await deleteDoc(cmt.ref);
+    }
+
+    // 🔥 Διαγραφή αρχείων από Storage
+    if (data.photo_path) {
+      const photoRef = storageRef(storage, data.photo_path);
+      await deleteObject(photoRef).catch(() => {});
+    }
+    if (data.audio_path) {
+      const audioRef = storageRef(storage, data.audio_path);
+      await deleteObject(audioRef).catch(() => {});
+    }
+
+    // 🔥 Διαγραφή memorial document
+    await deleteDoc(doc(db, "memorials", uuid));
+
+    alert("Το memorial διαγράφηκε με επιτυχία.");
+    window.location.href = "dashboard.html";
+  } catch (err) {
+    console.error(err);
+    alert("Σφάλμα κατά τη διαγραφή: " + err.message);
+  }
+}
+
+window.deleteMemorial = deleteMemorial;
+
+import { query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+// Προβολή logs
+async function showLogs() {
+  const logsSection = document.getElementById("logs-section");
+  const logsList = document.getElementById("logs-list");
+
+  // Toggle εμφάνισης
+  logsSection.style.display = logsSection.style.display === "none" ? "block" : "none";
+  logsList.innerHTML = "";
+
+  try {
+    const logsRef = collection(db, `memorials/${uuid}/logs`);
+    const logsSnap = await getDocs(query(logsRef, orderBy("timestamp", "desc")));
+
+    if (logsSnap.empty) {
+      logsList.innerHTML = "<li>Δεν υπάρχουν αλλαγές.</li>";
+      return;
+    }
+
+    logsSnap.forEach((doc) => {
+      const log = doc.data();
+      const li = document.createElement("li");
+      const when = new Date(log.timestamp).toLocaleString();
+      const who = log.changedBy;
+      const details = Object.entries(log.changes).map(([k, v]) =>
+        `<strong>${k}</strong>: '${v.from}' → '${v.to}'`).join("<br>");
+
+      li.innerHTML = `🕒 <em>${when}</em> από <code>${who}</code><br>${details}<hr>`;
+      logsList.appendChild(li);
+    });
+  } catch (err) {
+    logsList.innerHTML = `<li>⚠️ Σφάλμα: ${err.message}</li>`;
+  }
+}
+
+window.showLogs = showLogs;

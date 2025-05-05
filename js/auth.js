@@ -1,89 +1,94 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, OAuthProvider } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-import { firebaseConfig } from "./firebase.js";
+// js/auth.js
+// === Εγγραφή / Σύνδεση Χρηστών με Ρόλο ===
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+import { auth, db } from './firebase.js';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import {
+  doc, setDoc
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-let selectedRole = null;
+// === Εγγραφή Συγγενή ===
+export async function registerUser(event) {
+  event.preventDefault();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
 
-const btnRelative = document.getElementById("btn-relative");
-const btnPartner = document.getElementById("btn-partner");
-const registerForm = document.getElementById("registerForm");
-
-if (btnRelative) {
-  btnRelative.addEventListener("click", () => {
-    selectedRole = "relative";
-    registerForm.style.display = "block";
-  });
-}
-
-if (btnPartner) {
-  btnPartner.addEventListener("click", () => {
-    window.location.href = "register_partner.html";
-  });
-}
-
-if (registerForm) {
-  registerForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById("name").value.trim();
-    const surname = document.getElementById("surname").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-
-    if (password !== confirmPassword) {
-      alert("Οι κωδικοί δεν ταιριάζουν.");
-      return;
-    }
-
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        email,
-        name,
-        surname,
-        role: selectedRole,
-        approved: selectedRole === "relative" ? true : false,
-        createdAt: new Date().toISOString()
-      });
-
-      alert("Η εγγραφή ολοκληρώθηκε με επιτυχία.");
-      window.location.href = "dashboard.html";
-    } catch (error) {
-      alert("Σφάλμα: " + error.message);
-    }
-  });
-}
-
-// Social logins (Google, Microsoft, Facebook)
-const socialLogin = async (provider) => {
   try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-
-    await setDoc(doc(db, "users", user.uid), {
-      uid: user.uid,
-      email: user.email,
-      name: user.displayName,
-      role: "relative",
-      approved: true,
-      createdAt: new Date().toISOString()
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    await setDoc(doc(db, "users", userCredential.user.uid), {
+      email: email,
+      role: "relative"
     });
-
+    alert("Η εγγραφή ολοκληρώθηκε.");
     window.location.href = "dashboard.html";
   } catch (error) {
-    alert("Social Login Error: " + error.message);
+    alert("Σφάλμα εγγραφής: " + error.message);
   }
-};
+}
 
-window.googleLogin = () => socialLogin(new GoogleAuthProvider());
-window.microsoftLogin = () => socialLogin(new OAuthProvider("microsoft.com"));
-window.facebookLogin = () => socialLogin(new FacebookAuthProvider());
+// === Εγγραφή Συνεργάτη ===
+export async function registerPartner(event) {
+  event.preventDefault();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    await setDoc(doc(db, "users", userCredential.user.uid), {
+      email: email,
+      role: "partner"
+    });
+    alert("Εγγραφή συνεργάτη επιτυχής.");
+    window.location.href = "dashboard.html";
+  } catch (error) {
+    alert("Σφάλμα συνεργάτη: " + error.message);
+  }
+}
+
+// === Σύνδεση Χρήστη ===
+export async function loginUser(event) {
+  event.preventDefault();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    window.location.href = "dashboard.html";
+  } catch (error) {
+    alert("Σφάλμα σύνδεσης: " + error.message);
+  }
+}
+
+// === Google Login ===
+export async function signInWithGoogle() {
+  const provider = new GoogleAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const userDocRef = doc(db, "users", result.user.uid);
+    await setDoc(userDocRef, {
+      email: result.user.email,
+      role: "relative"
+    }, { merge: true });
+    window.location.href = "dashboard.html";
+  } catch (error) {
+    alert("Σφάλμα Google Login: " + error.message);
+  }
+}
+
+// === Αποσύνδεση ===
+export async function logoutUser() {
+  await signOut(auth);
+  window.location.href = "index.html";
+}
+
+window.registerUser = registerUser;
+window.registerPartner = registerPartner;
+window.loginUser = loginUser;
+window.signInWithGoogle = signInWithGoogle;
+window.logoutUser = logoutUser;
